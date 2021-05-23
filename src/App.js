@@ -5,7 +5,6 @@
  * @format
  * @flow strict-local
  */
-// gray-100 = #F9F9F9;
 
 import React, { useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, Pressable, View, Image } from 'react-native';
@@ -26,6 +25,7 @@ export default function App() {
           <Pressable style={[styles.button, styles.buttonRed]} onPress={() => setTally(tally - 1)}>
             <Image
               style={{
+                width: 100,
                 height: 30,
               }}
               source={require('./images/tally-mark--1.png')}
@@ -35,6 +35,7 @@ export default function App() {
           <Pressable style={[styles.button, styles.buttonRed]} onPress={() => setTally(tally - 5)}>
             <Image
               style={{
+                width: 100,
                 height: 30,
               }}
               source={require('./images/tally-mark--5.png')}
@@ -46,6 +47,7 @@ export default function App() {
           <Pressable style={styles.button} onPress={() => setTally(tally + 1)}>
             <Image
               style={{
+                width: 100,
                 height: 30,
               }}
               source={require('./images/tally-mark--1.png')}
@@ -55,6 +57,7 @@ export default function App() {
           <Pressable style={styles.button} onPress={() => setTally(tally + 5)}>
             <Image
               style={{
+                width: 100,
                 height: 30,
               }}
               source={require('./images/tally-mark--5.png')}
