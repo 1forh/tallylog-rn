@@ -5,35 +5,10 @@
  * @format
  * @flow strict-local
  */
+// gray-100 = #F9F9F9;
 
 import React, { useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, Pressable, View } from 'react-native';
-
-// const Section = ({children, title}): Node => {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// };
+import { SafeAreaView, StatusBar, StyleSheet, Text, Pressable, View, Image } from 'react-native';
 
 export default function App() {
   // const isDarkMode = useColorScheme() === 'dark';
@@ -44,15 +19,47 @@ export default function App() {
       <StatusBar />
       <View style={styles.wrapper}>
         <View style={styles.inner}>
-          <Text style={styles.name}>Testing</Text>
+          <Text style={styles.name}>Push-ups</Text>
           <Text style={styles.tally}>{tally}</Text>
         </View>
-        <View style={styles.buttons}>
-          <Pressable style={styles.button} onPress={() => setTally(tally - 1)}>
-            <Text style={styles.buttonText}>-</Text>
+        <View style={[styles.buttons, styles.buttonsRed]}>
+          <Pressable style={[styles.button, styles.buttonRed]} onPress={() => setTally(tally - 1)}>
+            <Image
+              style={{
+                height: 30,
+              }}
+              source={require('./images/tally-mark--1.png')}
+              resizeMode="contain"
+            />
           </Pressable>
+          <Pressable style={[styles.button, styles.buttonRed]} onPress={() => setTally(tally - 5)}>
+            <Image
+              style={{
+                height: 30,
+              }}
+              source={require('./images/tally-mark--5.png')}
+              resizeMode="contain"
+            />
+          </Pressable>
+        </View>
+        <View style={styles.buttons}>
           <Pressable style={styles.button} onPress={() => setTally(tally + 1)}>
-            <Text style={styles.buttonText}>+</Text>
+            <Image
+              style={{
+                height: 30,
+              }}
+              source={require('./images/tally-mark--1.png')}
+              resizeMode="contain"
+            />
+          </Pressable>
+          <Pressable style={styles.button} onPress={() => setTally(tally + 5)}>
+            <Image
+              style={{
+                height: 30,
+              }}
+              source={require('./images/tally-mark--5.png')}
+              resizeMode="contain"
+            />
           </Pressable>
         </View>
       </View>
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   inner: {
-    marginTop: 100,
+    marginTop: 150,
     flexGrow: 1,
   },
   name: {
@@ -86,6 +93,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     display: 'flex',
   },
+  buttonsRed: {
+    paddingBottom: 0,
+  },
   button: {
     backgroundColor: '#000',
     width: '45%',
@@ -95,9 +105,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 3,
   },
+  buttonRed: {
+    backgroundColor: '#EF4444',
+  },
   buttonText: {
     color: '#fff',
     fontSize: 42,
     lineHeight: 44,
   },
+  image: {},
 });
