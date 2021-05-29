@@ -1,4 +1,12 @@
 {
   "name": "TallyLog",
-  "displayName": "TallyLog"
+  "displayName": "TallyLog",
+  "expo": {
+    "name": "TallyLog",
+    "slug": "TallyLog",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
 }
