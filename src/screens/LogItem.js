@@ -14,8 +14,8 @@ export default function LogItem({ navigation }) {
       <TopBar goBack={navigation.goBack} />
       <Container style={tailwind('flex-1 justify-between')}>
         <View style={tailwind('mt-20 flex items-center')}>
-          <Text style={tailwind('text-4xl text-gray-300 font-light mb-2')}>Push-ups</Text>
-          <Text style={{ fontSize: 120, ...tailwind('text-gray-300 font-bold') }}>{tally}</Text>
+          <Text style={tailwind('text-4xl text-gray-400 font-light mb-2')}>Push-ups</Text>
+          <Text style={{ fontSize: 120, ...tailwind('text-gray-400 font-bold') }}>{tally}</Text>
         </View>
 
         <View style={tailwind('pb-5')}>

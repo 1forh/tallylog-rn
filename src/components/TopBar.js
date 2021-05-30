@@ -8,7 +8,7 @@ export default function TopBar({ goBack }) {
   return (
     <Container>
       <TouchableOpacity onPress={goBack}>
-        <ChevronLeftIcon color={gray[100]} size={36} />
+        <ChevronLeftIcon color={gray[400]} size={36} />
       </TouchableOpacity>
     </Container>
   );
