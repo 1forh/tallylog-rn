@@ -1,7 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import TheApp from './src/TheApp';
+
+import theStore from '@store';
 
 export default function App() {
-  return <View></View>;
+  return (
+    <Provider store={theStore}>
+      <StatusBar />
+      <TheApp />
+    </Provider>
+  );
 }
