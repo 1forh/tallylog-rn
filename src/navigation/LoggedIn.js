@@ -23,7 +23,13 @@ const LoggedIn = () => {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="LogItem" component={LogItem} />
+        <Stack.Screen
+          name="LogItem"
+          component={LogItem}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

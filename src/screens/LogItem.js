@@ -20,10 +20,10 @@ export default function LogItem({ navigation }) {
 
         <View style={tailwind('pb-5')}>
           <View style={tailwind('flex-row mb-4')}>
-            <TouchableOpacity style={tailwind('flex-1 mr-4 h-20 rounded-lg py-5 bg-red-500 items-center')} onPress={() => setTally(tally - 1)}>
+            <TouchableOpacity style={tailwind('flex-1 mr-4 h-20 rounded-lg py-5 bg-red-500 bg-opacity-25 items-center')} onPress={() => setTally(tally - 1)}>
               <Tally style={tailwind('w-full')} color={red[900]} />
             </TouchableOpacity>
-            <TouchableOpacity style={tailwind('flex-1 h-20 rounded-lg py-5 bg-red-500 items-center')} onPress={() => setTally(tally - 5)}>
+            <TouchableOpacity style={tailwind('flex-1 h-20 rounded-lg py-5 bg-red-500 bg-opacity-25 items-center')} onPress={() => setTally(tally - 5)}>
               <Tally value={5} style={tailwind('w-full')} color={red[800]} />
             </TouchableOpacity>
           </View>
