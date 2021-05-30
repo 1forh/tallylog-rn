@@ -1,37 +1,41 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LogItem from '@screens/LogItem';
 import LogItems from '@screens/LogItems';
-import { gray } from '@utils/colors';
+import Settings from '@screens/Settings';
+import { gray, blue } from '@utils/colors';
+import { tailwind } from '@utils/tailwind';
+import { HomeIcon, CogIcon, ViewListIcon } from 'react-native-heroicons/solid';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const LoggedIn = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="LogItems"
-        screenOptions={{
-          cardStyle: { backgroundColor: gray[900] },
-        }}
-      >
-        <Stack.Screen
-          name="LogItems"
-          component={LogItems}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="LogItem"
-          component={LogItem}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator
+      initialRouteName="LogItems"
+      screenOptions={({ route }) => ({
+        cardStyle: { backgroundColor: gray[900] },
+        tabBarIcon: ({ color, size }) => {
+          if (route.name === 'LogItems') {
+            return <ViewListIcon color={color} size={size} />;
+          } else if (route.name === 'Settings') {
+            return <CogIcon color={color} size={size} />;
+          }
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: blue[500],
+        inactiveTintColor: gray[300],
+        style: {
+          backgroundColor: gray[900],
+          ...tailwind('pt-5'),
+        },
+      }}
+    >
+      <Tab.Screen name="LogItems" component={LogItems} options={{ title: '' }} />
+      <Tab.Screen name="LogItem" component={LogItem} options={{ title: '' }} />
+      <Tab.Screen name="Settings" component={Settings} options={{ title: '' }} />
+    </Tab.Navigator>
   );
 };
 

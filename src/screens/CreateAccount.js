@@ -48,7 +48,7 @@ export default function CreateAccount({ navigation }) {
       await dispatch(createUserWithEmailAndPassword(email, password, name));
       setEmail('');
       setPassword('');
-      navigation.navigate('TabNav');
+      navigation.navigate('LoggedIn', { screen: 'LogItems' });
     } catch (error) {
       alert(error);
     }
@@ -56,7 +56,7 @@ export default function CreateAccount({ navigation }) {
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
-      <TopBar onBackPress={back}>Create an account</TopBar>
+      <TopBar goBack={back}>Create an account</TopBar>
 
       <PagerView style={tailwind('flex-1 mt-5')} initialPage={currentPage} scrollEnabled={false} ref={pagerRef}>
         <View key="0">

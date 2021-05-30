@@ -12,16 +12,12 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const back = () => {
-    navigation.navigate('Splash');
-  };
-
   const submit = async () => {
     try {
       await dispatch(signInWithEmailAndPassword(email, password));
       setEmail('');
       setPassword('');
-      navigation.navigate('LogItems');
+      navigation.navigate('LoggedIn', { screen: 'LogItems' });
     } catch (error) {
       alert(error);
     }

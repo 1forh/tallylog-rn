@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import LoggedIn from '@navigation/LoggedIn';
-import LoggedOut from '@navigation/LoggedOut';
 import TheLoader from '@components/TheLoader';
 import { firebase } from '@utils/firebase';
 import { tailwind } from '@tailwind';
+import WrapperNav from '@navigation/WrapperNav';
 
 export default function TheApp() {
   const dispatch = useDispatch();
@@ -26,6 +25,8 @@ export default function TheApp() {
   };
 
   firebase.auth().onAuthStateChanged(onAuthStateChanged);
+
+  return <WrapperNav />;
 
   if (isAuthenticationReady) {
     if (isAuthenticated) {
