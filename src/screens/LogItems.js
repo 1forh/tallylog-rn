@@ -1,10 +1,12 @@
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 
-export default function LogItems() {
+export default function LogItems({ navigation }) {
   return (
     <SafeAreaView>
-      <Text>Items</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('LogItem')}>
+        <Text>View Item</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

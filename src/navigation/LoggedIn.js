@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LogItem from '@screens/LogItem';
 import LogItems from '@screens/LogItem';
+import { gray } from '@utils/colors';
 
 const Stack = createStackNavigator();
 
@@ -10,9 +11,9 @@ const LoggedIn = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="LogItem"
+        initialRouteName="LogItems"
         screenOptions={{
-          cardStyle: { backgroundColor: '#fff' },
+          cardStyle: { backgroundColor: gray[900] },
         }}
       >
         <Stack.Screen
