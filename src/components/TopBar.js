@@ -5,11 +5,11 @@ import Container from '@components/Container';
 import { gray } from '@utils/colors';
 import { tailwind } from '@tailwind';
 
-export default function TopBar({ goBack, children }) {
+export default function TopBar({ goBack, children, style }) {
   return (
-    <Container style={tailwind('flex-row mt-5 items-center')}>
+    <Container style={{ ...style, ...tailwind('flex-row py-3 items-center') }}>
       {goBack && (
-        <TouchableOpacity onPress={goBack} style={tailwind('p-2 -ml-4')}>
+        <TouchableOpacity onPress={goBack} style={tailwind('px-2 -ml-4')}>
           <ChevronLeftIcon color={gray[400]} size={36} />
         </TouchableOpacity>
       )}
