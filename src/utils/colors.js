@@ -6,6 +6,11 @@ export const gray = {
   900: '#171717',
 };
 
+export const blue = {
+  500: '#3B82F6',
+  800: '#1E40AF',
+};
+
 export const red = {
   600: '#DC2626',
   700: '#B91C1C',
