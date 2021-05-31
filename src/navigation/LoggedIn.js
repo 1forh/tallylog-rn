@@ -26,7 +26,8 @@ const LoggedIn = () => {
         activeTintColor: blue[500],
         inactiveTintColor: gray[300],
         style: {
-          backgroundColor: gray[900],
+          borderTopColor: 'transparent',
+          backgroundColor: '#000',
           ...tailwind('pt-5'),
         },
       }}

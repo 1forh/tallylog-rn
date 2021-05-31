@@ -1,8 +1,9 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import LogItems from '@screens/LogItems';
 import LogItem from '@screens/LogItem';
 import { gray } from '@utils/colors';
+import AddItem from '@screens/AddItem';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,15 @@ export default function LogsNav() {
         component={LogItem}
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddItem"
+        component={AddItem}
+        options={{
+          headerShown: false,
+          gestureDirection: 'vertical',
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         }}
       />
     </Stack.Navigator>
