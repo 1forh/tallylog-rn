@@ -17,23 +17,26 @@ export const fetchItems = () => {
   try {
     return async (dispatch) => {
       try {
-        // const { uid } = firebase.auth().currentUser;
+        const { uid } = firebase.auth().currentUser;
 
         await firebase
           .firestore()
-          .collection(`logs/Dxf7L5Po2KxDO9eisbIK/items`)
+          .collection(`logs`)
+          // .where('owner', '==', uid)
+          .doc('Dxf7L5Po2KxDO9eisbIK')
+          .collection('items')
           .onSnapshot(async (snapshot) => {
             const items = snapshot.docs
               .map((doc) => {
                 return { id: doc.id, ...doc.data() };
               })
               .map((item) => {
-                item.dateBorrowed = formatDate(item.dateBorrowed.toDate(), 'M/d/yyyy');
-                item.dateExpected = formatDate(item.dateExpected.toDate(), 'M/d/yyyy');
+                item.created = formatDate(item.created.toDate(), 'M/d/yyyy');
+                if (item.edited) {
+                  item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
+                }
                 return item;
               });
-
-            console.log('hit');
 
             dispatch({ type: 'items/SET_ITEMS', payload: items });
           });

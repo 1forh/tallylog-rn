@@ -12,6 +12,7 @@ import { fetchItems } from '@store/actions/logsActions';
 
 export default function LogItems({ navigation }) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.userReducer.user);
   const items = useSelector((state) => state.logsReducer.items);
 
   const goToAddItem = () => {
@@ -33,7 +34,9 @@ export default function LogItems({ navigation }) {
           <TopBar style={tailwind('z-50')}>Fitness</TopBar>
         </View>
 
-        <Container style={tailwind('pt-5 pb-20')}>{items.length > 0 ? <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} /> : <View></View>}</Container>
+        <Container style={tailwind('pt-5 pb-20')}>
+          {items.length > 0 ? items.map((item) => <LogItemPreview navigate={navigation.navigate} key={item.id} item={item} style={tailwind('mb-4')} />) : <View></View>}
+        </Container>
       </ScrollView>
 
       <TouchableOpacity
