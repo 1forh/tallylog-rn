@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
 import { BlurView } from 'expo-blur';
 import LogItemPreview from '@components/LogItemPreview';
@@ -7,14 +8,22 @@ import Container from '@components/Container';
 import TopBar from '@components/TopBar';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon } from 'react-native-heroicons/solid';
+import { fetchItems } from '@store/actions/logsActions';
 
 export default function LogItems({ navigation }) {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.logsReducer.items);
+
   const goToAddItem = () => {
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     }
     navigation.navigate('AddItem');
   };
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, []);
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
@@ -24,20 +33,7 @@ export default function LogItems({ navigation }) {
           <TopBar style={tailwind('z-50')}>Fitness</TopBar>
         </View>
 
-        <Container style={tailwind('pt-5 pb-20')}>
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-          <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} />
-        </Container>
+        <Container style={tailwind('pt-5 pb-20')}>{items.length > 0 ? <LogItemPreview navigate={navigation.navigate} style={tailwind('mb-4')} /> : <View></View>}</Container>
       </ScrollView>
 
       <TouchableOpacity
