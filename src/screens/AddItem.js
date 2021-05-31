@@ -1,11 +1,15 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import { tailwind } from '@tailwind';
+import TopBar from '@components/TopBar';
 
-export default function AddItem() {
+export default function AddItem({ navigation }) {
   return (
-    <View>
+    <SafeAreaView style={tailwind('flex-1')}>
+      <TopBar iconType="down" goBack={() => navigation.goBack()}>
+        Add Item
+      </TopBar>
       <Text></Text>
-    </View>
+    </SafeAreaView>
   );
 }
