@@ -24,3 +24,7 @@ export const yellow = {
   400: '#FACC15',
   500: '#EAB308',
 };
+
+export const green = {
+  500: '#84CC16',
+};

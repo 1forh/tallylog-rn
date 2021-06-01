@@ -113,6 +113,19 @@ export const fetchItems = (logId) => {
                 return item;
               });
 
+            for (const item of items) {
+              const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date').get();
+              const history = historySnapshot.docs
+                .map((doc) => ({ id: doc.id, ...doc.data() }))
+                .map((item) => {
+                  if (item.date) {
+                    item.date = formatDate(item.date.toDate(), 'M/d/yyyy');
+                  }
+                  return item;
+                });
+              item.history = history;
+            }
+
             dispatch({ type: 'items/SET_ITEMS', payload: items });
           });
       } catch (error) {
