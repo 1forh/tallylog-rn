@@ -19,3 +19,8 @@ export const red = {
   800: '#991B1B',
   900: '#7F1D1D',
 };
+
+export const yellow = {
+  400: '#FACC15',
+  500: '#EAB308',
+};

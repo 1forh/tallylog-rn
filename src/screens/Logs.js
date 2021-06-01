@@ -3,30 +3,27 @@ import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform } from
 import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
 import { BlurView } from 'expo-blur';
-import LogItemPreview from '@components/LogItemPreview';
+import LogPreview from '@components/LogPreview';
 import Container from '@components/Container';
 import TopBar from '@components/TopBar';
 import * as Haptics from 'expo-haptics';
-import { PlusIcon, StarIcon } from 'react-native-heroicons/solid';
-import { fetchItems } from '@store/actions/logsActions';
-import { gray } from '@utils/colors';
+import { PlusIcon } from 'react-native-heroicons/solid';
+import { fetchLogs } from '@store/actions/logsActions';
 
-export default function LogItems({ navigation, isFavorites }) {
+export default function Logs({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
-  const log = useSelector((state) => state.logsReducer.log);
-  const items = useSelector((state) => state.logsReducer.items);
-  const { name } = log;
+  const logs = useSelector((state) => state.logsReducer.logs);
 
   const goToAddItem = () => {
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     }
-    navigation.navigate('AddItem');
+    navigation.navigate('AddLog');
   };
 
   useEffect(() => {
-    dispatch(fetchItems(log.id));
+    dispatch(fetchLogs());
   }, []);
 
   return (
@@ -34,13 +31,11 @@ export default function LogItems({ navigation, isFavorites }) {
       <ScrollView style={tailwind('flex-1')} stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false} contentInsetAdjustmentBehavior="always" scrollEventThrottle={32}>
         <View style={tailwind('relative')}>
           <BlurView style={tailwind('absolute w-full h-full z-10')} intensity={75} tint="dark" />
-          <TopBar goBack={() => navigation.goBack()} style={tailwind('z-50')} iconType={isFavorites ? 'star' : 'left'}>
-            {name}
-          </TopBar>
+          <TopBar style={tailwind('z-50')}>My Logs</TopBar>
         </View>
 
         <Container style={tailwind('pt-5 pb-20')}>
-          {items.length > 0 ? items.map((item) => <LogItemPreview navigate={navigation.navigate} key={item.id} item={item} style={tailwind('mb-4')} />) : <View></View>}
+          {logs.length > 0 ? logs.map((log) => <LogPreview navigate={navigation.navigate} key={log.id} log={log} style={tailwind('mb-4')} />) : <View></View>}
         </Container>
       </ScrollView>
 

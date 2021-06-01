@@ -41,7 +41,7 @@ export const decrementTally = (itemId, by) => {
   };
 };
 
-export const fetchItems = () => {
+export const fetchLogs = () => {
   try {
     return async (dispatch) => {
       try {
@@ -50,8 +50,40 @@ export const fetchItems = () => {
         await firebase
           .firestore()
           .collection(`logs`)
-          // .where('owner', '==', uid)
-          .doc('Dxf7L5Po2KxDO9eisbIK')
+          .where('owner', '==', uid)
+          .onSnapshot(async (snapshot) => {
+            const logs = snapshot.docs
+              .map((doc) => {
+                return { id: doc.id, ...doc.data() };
+              })
+              .map((item) => {
+                item.created = formatDate(item.created.toDate(), 'M/d/yyyy');
+
+                if (item.edited) {
+                  item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
+                }
+                return item;
+              });
+
+            dispatch({ type: 'items/SET_LOGS', payload: logs });
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchItems = (logId) => {
+  try {
+    return async (dispatch) => {
+      try {
+        await firebase
+          .firestore()
+          .collection(`logs`)
+          .doc(logId)
           .collection('items')
           .onSnapshot(async (snapshot) => {
             const items = snapshot.docs
