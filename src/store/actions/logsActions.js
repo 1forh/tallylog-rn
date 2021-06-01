@@ -1,6 +1,21 @@
 import { firebase } from '@utils/firebase';
 import { format as formatDate } from 'date-fns';
 
+export const createLog = (log) => {
+  const { uid } = firebase.auth().currentUser;
+
+  log.owner = uid;
+  log.created = firebase.firestore.Timestamp.now();
+
+  return async () => {
+    try {
+      await firebase.firestore().collection(`logs`).add(log);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const addItem = (itemId) => {
   return async (dispatch) => {
     try {
