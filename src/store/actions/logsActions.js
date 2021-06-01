@@ -16,6 +16,19 @@ export const createLog = (log) => {
   };
 };
 
+export const createItem = (logId, item) => {
+  item.created = firebase.firestore.Timestamp.now();
+  item.tally = 0;
+
+  return async () => {
+    try {
+      await firebase.firestore().collection(`logs`).doc(logId).collection('items').add(item);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const addItem = (itemId) => {
   return async (dispatch) => {
     try {
