@@ -35,7 +35,15 @@ export default function Logs({ navigation }) {
         </View>
 
         <Container style={tailwind('pt-5 pb-20')}>
-          {logs.length > 0 ? logs.map((log) => <LogPreview navigate={navigation.navigate} key={log.id} log={log} style={tailwind('mb-4')} />) : <View></View>}
+          {logs.length > 0 ? (
+            logs.map((log) => (
+              <View style={tailwind('mb-4')} key={log.id}>
+                <LogPreview navigate={navigation.navigate} log={log} />
+              </View>
+            ))
+          ) : (
+            <View></View>
+          )}
         </Container>
       </ScrollView>
 

@@ -40,7 +40,15 @@ export default function LogItems({ navigation, isFavorites }) {
         </View>
 
         <Container style={tailwind('pt-5 pb-20')}>
-          {items.length > 0 ? items.map((item) => <LogItemPreview navigate={navigation.navigate} key={item.id} item={item} style={tailwind('mb-4')} />) : <View></View>}
+          {items.length > 0 ? (
+            items.map((item) => (
+              <View style={tailwind('mb-4')} key={item.id}>
+                <LogItemPreview navigate={navigation.navigate} item={item} log={log} />
+              </View>
+            ))
+          ) : (
+            <View></View>
+          )}
         </Container>
       </ScrollView>
 

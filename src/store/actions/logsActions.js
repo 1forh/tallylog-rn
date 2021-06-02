@@ -1,6 +1,17 @@
 import { firebase } from '@utils/firebase';
 import { format as formatDate } from 'date-fns';
 
+export const deleteLog = (logId) => {
+  return async (dispatch) => {
+    try {
+      await firebase.firestore().collection(`logs`).doc(logId).delete();
+      dispatch({ type: 'items/REMOVE_LOG', payload: logId });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const createLog = (log) => {
   const { uid } = firebase.auth().currentUser;
 
@@ -10,6 +21,17 @@ export const createLog = (log) => {
   return async () => {
     try {
       await firebase.firestore().collection(`logs`).add(log);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const deleteItem = (logId, itemId) => {
+  return async (dispatch) => {
+    try {
+      await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(itemId).delete();
+      dispatch({ type: 'items/REMOVE_ITEM', payload: itemId });
     } catch (error) {
       console.error(error);
     }
