@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform } from 'react-native';
+import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
 import { BlurView } from 'expo-blur';
@@ -28,6 +28,8 @@ export default function LogItems({ navigation, isFavorites }) {
   useEffect(() => {
     dispatch(fetchItems(log.id));
   }, []);
+
+  LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
