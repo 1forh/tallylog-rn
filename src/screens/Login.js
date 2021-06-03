@@ -29,7 +29,7 @@ export default function Login({ navigation }) {
 
       <Container style={tailwind('flex-1 mt-5')}>
         <View style={tailwind('mb-6')}>
-          <InputWithLabel label="Email" onChangeText={(text) => setEmail(text)} autoCompleteType="email" keyboardType="email-address" autoFocus={true} autoCorrect={false} autoCapitalize="none" />
+          <InputWithLabel label="Email" onChangeText={(text) => setEmail(text)} autoCompleteType="email" keyboardType="email-address" autoCorrect={false} autoCapitalize="none" />
         </View>
         <View>
           <InputWithLabel label="Password" onChangeText={(text) => setPassword(text)} secureTextEntry autoCompleteType="password" autoCorrect={false} autoCapitalize="none" />
