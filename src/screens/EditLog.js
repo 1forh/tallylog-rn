@@ -1,29 +1,28 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { tailwind } from '@tailwind';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TopBar from '@components/TopBar';
 import Container from '@components/Container';
 import LogForm from '@components/LogForm';
-import { createLog } from '@store/actions/logsActions';
+import { editLog } from '@store/actions/logsActions';
 
-export default function AddLog({ navigation }) {
+export default function EditLog({ navigation }) {
   const dispatch = useDispatch();
+  const log = useSelector((state) => state.logsReducer.log);
 
   const submit = (form) => {
-    dispatch(createLog(form));
+    dispatch(editLog(form));
     navigation.navigate('Logs');
   };
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
-      <TopBar iconType="down" goBack={() => navigation.goBack()}>
-        Add Log
+      <TopBar iconType="left" goBack={() => navigation.goBack()}>
+        Edit Log
       </TopBar>
 
-      <Container style={tailwind('flex-1 mt-5')}>
-        <LogForm submit={submit} />
-      </Container>
+      <Container style={tailwind('flex-1 mt-5')}>{log && <LogForm submit={submit} log={log} />}</Container>
     </SafeAreaView>
   );
 }

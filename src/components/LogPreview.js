@@ -12,6 +12,16 @@ export default function LogPreview({ navigate = () => {}, style, log }) {
   const swipeableRef = useRef(null);
   const { name, tally } = log;
 
+  const goToLog = () => {
+    dispatch({ type: 'items/SET_LOG', payload: log });
+    navigate('LogItems');
+  };
+
+  const goToEditLog = () => {
+    // dispatch({ type: 'items/SET_LOG', payload: log });
+    // navigate('EditLog');
+  };
+
   const renderRightAction = (text, icon, color, textColor, x, progress, handler) => {
     const trans = progress.interpolate({
       inputRange: [0, 1],
@@ -39,7 +49,7 @@ export default function LogPreview({ navigate = () => {}, style, log }) {
         flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
       }}
     >
-      {renderRightAction('Edit', 'pencil', gray[100], gray[900], 75, progress, () => console.log('hit'))}
+      {renderRightAction('Edit', 'pencil', gray[100], gray[900], 75, progress, () => goToEditLog())}
       {renderRightAction('Delete', 'trash', red[600], red[900], 150, progress, () => {
         Alert.alert('Deleting log', `Are you sure you want to delete this log?`, [
           {
@@ -56,15 +66,10 @@ export default function LogPreview({ navigate = () => {}, style, log }) {
     </View>
   );
 
-  const goTo = () => {
-    dispatch({ type: 'items/SET_LOG', payload: log });
-    navigate('LogItems');
-  };
-
   return (
     <View style={tailwind('bg-gray-800 rounded-lg overflow-hidden')}>
       <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
-        <Pressable onPress={goTo} style={tailwind('bg-gray-800 rounded-lg px-4 py-5 flex-row items-center justify-between')}>
+        <Pressable onPress={goToLog} style={tailwind('bg-gray-800 rounded-lg px-4 py-5 flex-row items-center justify-between')}>
           <Text style={tailwind('text-gray-400 text-xl')}>{name}</Text>
         </Pressable>
       </Swipeable>
