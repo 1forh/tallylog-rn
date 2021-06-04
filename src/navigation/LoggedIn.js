@@ -36,7 +36,7 @@ const LoggedIn = () => {
       }}
     >
       <Tab.Screen name="LogsNav" component={LogsNav} options={{ title: '' }} />
-      <Tab.Screen name="FavoriteLog" component={FavoriteLog} options={{ title: '' }} />
+      {/* <Tab.Screen name="FavoriteLog" component={FavoriteLog} options={{ title: '' }} /> */}
       <Tab.Screen name="Settings" component={Settings} options={{ title: '' }} />
     </Tab.Navigator>
   );

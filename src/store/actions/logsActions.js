@@ -16,11 +16,23 @@ export const createLog = (log) => {
   const { uid } = firebase.auth().currentUser;
 
   log.owner = uid;
+  log.favorite = false;
   log.created = firebase.firestore.Timestamp.now();
 
   return async () => {
     try {
       await firebase.firestore().collection(`logs`).add(log);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const markLogAsFavorite = (logId, favorited) => {
+  return async (dispatch) => {
+    try {
+      await firebase.firestore().collection(`logs`).doc(logId).update({ favorite: favorited });
+      dispatch({ type: 'items/MARK_LOG_AS_FAVORITE', payload: favorited });
     } catch (error) {
       console.error(error);
     }

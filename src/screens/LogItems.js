@@ -8,8 +8,8 @@ import Container from '@components/Container';
 import TopBar from '@components/TopBar';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon, StarIcon } from 'react-native-heroicons/solid';
-import { fetchItems } from '@store/actions/logsActions';
-import { gray } from '@utils/colors';
+import { fetchItems, markLogAsFavorite } from '@store/actions/logsActions';
+import { yellow } from '@utils/colors';
 
 export default function LogItems({ navigation, isFavorites }) {
   const dispatch = useDispatch();
@@ -25,6 +25,16 @@ export default function LogItems({ navigation, isFavorites }) {
     navigation.navigate('AddItem');
   };
 
+  const FavoriteButton = () => {
+    return (
+      <View>
+        <TouchableOpacity onPress={() => dispatch(markLogAsFavorite(log.id, !log.favorite))} style={tailwind('w-10 h-10 justify-start justify-center')}>
+          <StarIcon color={log.favorite ? yellow[400] : '#ffffff'} size={28} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   useEffect(() => {
     dispatch(fetchItems(log.id));
   }, []);
@@ -36,7 +46,7 @@ export default function LogItems({ navigation, isFavorites }) {
       <ScrollView style={tailwind('flex-1')} stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false} contentInsetAdjustmentBehavior="always" scrollEventThrottle={32}>
         <View style={tailwind('relative')}>
           <BlurView style={tailwind('absolute w-full h-full z-10')} intensity={75} tint="dark" />
-          <TopBar goBack={() => navigation.goBack()} style={tailwind('z-50')} iconType={isFavorites ? 'star' : 'left'}>
+          <TopBar goBack={() => navigation.goBack()} style={tailwind('z-50')} iconType={isFavorites ? 'star' : 'left'} right={<FavoriteButton />}>
             {name}
           </TopBar>
         </View>
