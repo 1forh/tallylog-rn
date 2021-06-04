@@ -28,15 +28,12 @@ export const createLog = (log) => {
   };
 };
 
-export const editLog = (log) => {
-  const logId = log.id;
-  delete log.id;
-
-  log.edited = firebase.firestore.Timestamp.now();
+export const editLog = (logId, updates) => {
+  updates.edited = firebase.firestore.Timestamp.now();
 
   return async () => {
     try {
-      await firebase.firestore().collection(`logs`).doc(logId).update(log);
+      await firebase.firestore().collection(`logs`).doc(logId).update(updates);
     } catch (error) {
       console.error(error);
     }

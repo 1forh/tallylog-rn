@@ -18,8 +18,9 @@ export default function LogPreview({ navigate = () => {}, style, log }) {
   };
 
   const goToEditLog = () => {
-    // dispatch({ type: 'items/SET_LOG', payload: log });
-    // navigate('EditLog');
+    dispatch({ type: 'items/SET_LOG', payload: log });
+    navigate('EditLog');
+    swipeableRef.current.close();
   };
 
   const renderRightAction = (text, icon, color, textColor, x, progress, handler) => {

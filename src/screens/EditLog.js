@@ -12,7 +12,7 @@ export default function EditLog({ navigation }) {
   const log = useSelector((state) => state.logsReducer.log);
 
   const submit = (form) => {
-    dispatch(editLog(form));
+    dispatch(editLog(log.id, form));
     navigation.navigate('Logs');
   };
 
@@ -22,7 +22,9 @@ export default function EditLog({ navigation }) {
         Edit Log
       </TopBar>
 
-      <Container style={tailwind('flex-1 mt-5')}>{log && <LogForm submit={submit} log={log} />}</Container>
+      <Container style={tailwind('flex-1 mt-5')}>
+        <LogForm submit={submit} log={log} />
+      </Container>
     </SafeAreaView>
   );
 }
