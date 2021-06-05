@@ -23,7 +23,7 @@ export default function EditLog({ navigation }) {
       </TopBar>
 
       <Container style={tailwind('flex-1 mt-5')}>
-        <LogForm submit={submit} log={log} />
+        <LogForm submit={submit} log={log} buttonText="Edit log" />
       </Container>
     </SafeAreaView>
   );

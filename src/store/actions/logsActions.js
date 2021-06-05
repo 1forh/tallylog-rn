@@ -40,6 +40,18 @@ export const editLog = (logId, updates) => {
   };
 };
 
+export const editLogItem = (logId, itemId, updates) => {
+  updates.edited = firebase.firestore.Timestamp.now();
+
+  return async () => {
+    try {
+      await firebase.firestore().collection(`logs/${logId}/items`).doc(itemId).update(updates);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const markLogAsFavorite = (logId, favorited) => {
   return async (dispatch) => {
     try {

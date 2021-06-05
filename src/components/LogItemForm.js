@@ -3,9 +3,9 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { tailwind } from '@tailwind';
 import InputWithLabel from '@components/InputWithLabel';
 
-export default function LogForm({ log, submit, buttonText }) {
+export default function LogItemForm({ item, submit, buttonText }) {
   const [form, setForm] = useState({
-    name: log?.name ?? '',
+    name: item?.name ?? '',
   });
 
   return (

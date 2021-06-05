@@ -71,7 +71,7 @@ export default function LogPreview({ navigate = () => {}, style, log }) {
     <View style={tailwind('bg-gray-800 rounded-lg overflow-hidden')}>
       <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
         <Pressable onPress={goToLog} style={tailwind('bg-gray-800 rounded-lg px-4 py-5 flex-row items-center justify-between')}>
-          <Text style={tailwind('text-gray-400 text-xl')}>{name}</Text>
+          <Text style={tailwind('text-gray-400 text-2xl')}>{name}</Text>
         </Pressable>
       </Swipeable>
     </View>

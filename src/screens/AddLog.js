@@ -22,7 +22,7 @@ export default function AddLog({ navigation }) {
       </TopBar>
 
       <Container style={tailwind('flex-1 mt-5')}>
-        <LogForm submit={submit} />
+        <LogForm submit={submit} buttonText="Add log" />
       </Container>
     </SafeAreaView>
   );
