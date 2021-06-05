@@ -3,9 +3,9 @@ import { SafeAreaView } from 'react-native';
 import { tailwind } from '@tailwind';
 import { useDispatch, useSelector } from 'react-redux';
 import TopBar from '@components/TopBar';
-import Container from '@components/Container';
 import LogItemForm from '@components/LogItemForm';
 import { editLogItem } from '@store/actions/logsActions';
+import BlurredTopWrapper from '@components/BlurredTopWrapper';
 
 export default function EditLogItem({ navigation }) {
   const dispatch = useDispatch();
@@ -19,13 +19,15 @@ export default function EditLogItem({ navigation }) {
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
-      <TopBar iconType="left" goBack={() => navigation.goBack()}>
-        Edit Item
-      </TopBar>
-
-      <Container style={tailwind('flex-1 mt-5')}>
+      <BlurredTopWrapper
+        topBar={
+          <TopBar iconType="left" goBack={() => navigation.goBack()}>
+            Edit Item
+          </TopBar>
+        }
+      >
         <LogItemForm submit={submit} item={item} buttonText="Edit log" />
-      </Container>
+      </BlurredTopWrapper>
     </SafeAreaView>
   );
 }

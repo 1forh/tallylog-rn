@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation, Pressable } from 'react-native';
+import React, { useEffect } from 'react';
+import { SafeAreaView, Text, View, TouchableOpacity, Platform, LayoutAnimation, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
-import { BlurView } from 'expo-blur';
 import LogPreview from '@components/LogPreview';
-import Container from '@components/Container';
 import TopBar from '@components/TopBar';
+import BlurredTopWrapper from '@components/BlurredTopWrapper';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon } from 'react-native-heroicons/solid';
 import { fetchLogs } from '@store/actions/logsActions';
@@ -13,7 +12,6 @@ import { gray } from '@utils/colors';
 
 export default function Logs({ navigation }) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userReducer.user);
   const logs = useSelector((state) => state.logsReducer.logs);
 
   const goToAddLog = () => {
@@ -31,27 +29,20 @@ export default function Logs({ navigation }) {
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
-      <ScrollView style={tailwind('flex-1')} stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false} contentInsetAdjustmentBehavior="always" scrollEventThrottle={32}>
-        <View style={tailwind('relative')}>
-          <BlurView style={tailwind('absolute w-full h-full z-10')} intensity={75} tint="dark" />
-          <TopBar style={tailwind('z-50')}>My Logs</TopBar>
-        </View>
-
-        <Container style={tailwind('pt-5 pb-20')}>
-          {logs.length > 0 ? (
-            logs.map((log) => (
-              <View style={tailwind('mb-4')} key={log.id}>
-                <LogPreview navigate={navigation.navigate} log={log} />
-              </View>
-            ))
-          ) : (
-            <Pressable onPress={goToAddLog} style={tailwind('pt-10 justify-center items-center')}>
-              <PlusIcon style={tailwind('mb-3')} color={gray[300]} size={48} />
-              <Text style={tailwind('text-xl text-gray-200 text-center')}>Add a log to get started</Text>
-            </Pressable>
-          )}
-        </Container>
-      </ScrollView>
+      <BlurredTopWrapper topBar={<TopBar style={tailwind('z-50')}>My Logs</TopBar>}>
+        {logs.length > 0 ? (
+          logs.map((log) => (
+            <View style={tailwind('mb-4')} key={log.id}>
+              <LogPreview navigate={navigation.navigate} log={log} />
+            </View>
+          ))
+        ) : (
+          <Pressable onPress={goToAddLog} style={tailwind('pt-10 justify-center items-center')}>
+            <PlusIcon style={tailwind('mb-3')} color={gray[300]} size={48} />
+            <Text style={tailwind('text-xl text-gray-200 text-center')}>Add a log to get started</Text>
+          </Pressable>
+        )}
+      </BlurredTopWrapper>
 
       <TouchableOpacity
         activeOpacity={0.7}

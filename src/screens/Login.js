@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
-import Container from '@components/Container';
 import InputWithLabel from '@components/InputWithLabel';
 import { tailwind } from '@tailwind';
 import TopBar from '@components/TopBar';
 import { signInWithEmailAndPassword } from '@store/actions/userActions';
+import BlurredTopWrapper from '@components/BlurredTopWrapper';
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -25,9 +25,7 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
-      <TopBar>Sign in</TopBar>
-
-      <Container style={tailwind('flex-1 mt-5')}>
+      <BlurredTopWrapper topBar={<TopBar>Sign in</TopBar>}>
         <View style={tailwind('mb-6')}>
           <InputWithLabel label="Email" onChangeText={(text) => setEmail(text)} autoCompleteType="email" keyboardType="email-address" autoCorrect={false} autoCapitalize="none" />
         </View>
@@ -45,7 +43,7 @@ export default function Login({ navigation }) {
             <Text style={tailwind('text-gray-400 text-xl font-bold')}>Create Account</Text>
           </TouchableOpacity>
         </View>
-      </Container>
+      </BlurredTopWrapper>
     </SafeAreaView>
   );
 }

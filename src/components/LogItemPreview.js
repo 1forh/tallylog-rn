@@ -65,7 +65,6 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log }
   );
 
   const goTo = () => {
-    console.log(item);
     dispatch({ type: 'items/SET_ITEM', payload: item });
     navigate('LogItem');
   };

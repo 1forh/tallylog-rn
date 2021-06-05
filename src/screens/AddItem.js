@@ -1,11 +1,11 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { tailwind } from '@tailwind';
 import { useDispatch, useSelector } from 'react-redux';
 import TopBar from '@components/TopBar';
 import LogItemForm from '@components/LogItemForm';
-import Container from '@components/Container';
 import { createItem } from '@store/actions/logsActions';
+import BlurredTopWrapper from '@components/BlurredTopWrapper';
 
 export default function AddItem({ navigation }) {
   const dispatch = useDispatch();
@@ -18,13 +18,15 @@ export default function AddItem({ navigation }) {
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
-      <TopBar iconType="down" goBack={() => navigation.goBack()}>
-        Add Item
-      </TopBar>
-
-      <Container style={tailwind('flex-1 mt-5')}>
+      <BlurredTopWrapper
+        topBar={
+          <TopBar style={tailwind('z-50')} iconType="down" goBack={() => navigation.goBack()}>
+            Add Item
+          </TopBar>
+        }
+      >
         <LogItemForm submit={submit} buttonText="Add item" />
-      </Container>
+      </BlurredTopWrapper>
     </SafeAreaView>
   );
 }
