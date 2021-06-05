@@ -133,7 +133,7 @@ export const fetchLogs = () => {
       try {
         const { uid } = firebase.auth().currentUser;
 
-        await firebase
+        const unsubscribe = await firebase
           .firestore()
           .collection(`logs`)
           .where('owner', '==', uid)
@@ -166,7 +166,7 @@ export const fetchItems = (logId) => {
   try {
     return async (dispatch) => {
       try {
-        await firebase
+        const unsubscribe = await firebase
           .firestore()
           .collection(`logs`)
           .doc(logId)
