@@ -178,7 +178,7 @@ export const fetchItems = (logId) => {
               });
 
             for (const item of items) {
-              const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date').get();
+              const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date').limit(10).get();
               const history = historySnapshot.docs
                 .map((doc) => ({ id: doc.id, ...doc.data() }))
                 .map((item) => {

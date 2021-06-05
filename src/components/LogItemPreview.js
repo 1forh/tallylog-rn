@@ -11,8 +11,19 @@ import { deleteItem } from '@store/actions/logsActions';
 export default function LogItemPreview({ navigate = () => {}, style, item, log }) {
   const dispatch = useDispatch();
   const swipeableRef = useRef(null);
-  const { name, tally, history, goal } = item;
-  const historyTallies = history.map((item) => item.tally).slice(0, 5);
+  const { name, tally, history, goal, resetEvery } = item;
+  const historyTallies = history.map((item) => item.tally).slice(0, 10);
+
+  let resetEveryLabel;
+  if (resetEvery === 'day') {
+    resetEveryLabel = 'Resets daily';
+  } else if (resetEvery === 'week') {
+    resetEveryLabel = 'Resets on Monday';
+  } else if (resetEvery === 'month') {
+    resetEveryLabel = 'Resets monthly';
+  } else {
+    resetEveryLabel = 'Resets daily';
+  }
 
   const goToEditLogItem = () => {
     dispatch({ type: 'items/SET_ITEM', payload: item });
@@ -72,9 +83,12 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log }
   return (
     <View style={tailwind('bg-gray-800 rounded-lg overflow-hidden')}>
       <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
-        <Pressable onPress={goTo} style={tailwind('bg-gray-800 rounded-lg px-4 py-5 flex-row items-center justify-between')}>
+        <Pressable onPress={goTo} style={tailwind('bg-gray-800 rounded-lg px-4 py-2 flex-row items-center justify-between')}>
           <View style={tailwind('flex-row items-center')}>
-            <Text style={tailwind('text-gray-400 text-xl mr-6')}>{name}</Text>
+            <View style={tailwind('mr-6')}>
+              <Text style={tailwind('text-gray-400 text-xl')}>{name}</Text>
+              {resetEvery !== 'never' && <Text style={tailwind('text-gray-600 text-base')}>{resetEveryLabel}</Text>}
+            </View>
             <LineChart style={{ width: 75, height: 60 }} data={historyTallies} svg={{ stroke: green[500], strokeWidth: 3 }} contentInset={{ top: 20, bottom: 20 }}></LineChart>
           </View>
           <Text style={[tailwind('font-bold'), goal ? tailwind('text-2xl') : tailwind(' text-4xl'), tally >= goal ? tailwind('text-green-500') : tailwind('text-gray-400')]}>

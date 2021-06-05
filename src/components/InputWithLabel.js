@@ -17,7 +17,7 @@ export default function InputWithLabel(props) {
           returnKeyType={props.returnKeyType ?? 'default'}
           textContentType={props.textContentType}
           enablesReturnKeyAutomatically={props.enablesReturnKeyAutomatically}
-          style={[tailwind('p-0 h-16 w-full text-xl text-gray-300')]}
+          style={[tailwind('p-0 h-14 w-full text-gray-300'), { fontSize: 20 }]}
           autoCompleteType={props.autoCompleteType}
           autoFocus={props.autoFocus}
           placeholder={props.placeholder}
