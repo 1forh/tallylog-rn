@@ -42,18 +42,21 @@ export const indigo = {
 };
 
 export const pickerColors = {
+  gray: gray[800],
   green: green[500],
   yellow: yellow[500],
   indigo: indigo[500],
 };
 
 export const pickerColorsText = {
+  gray: gray[300],
   green: green[800],
   yellow: yellow[700],
   indigo: indigo[50],
 };
 
 export const pickerColorsBorder = {
+  gray: gray[300],
   green: green[50],
   yellow: yellow[50],
   indigo: indigo[50],

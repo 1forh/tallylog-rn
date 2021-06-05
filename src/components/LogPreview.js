@@ -71,7 +71,7 @@ export default function LogPreview({ navigate = () => {}, style, log }) {
     <View style={[logColor ? { backgroundColor: pickerColors[logColor] } : tailwind('bg-gray-800'), tailwind('rounded-lg overflow-hidden')]}>
       <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
         <Pressable onPress={goToLog} style={[logColor ? { backgroundColor: pickerColors[logColor] } : tailwind('bg-gray-800'), tailwind('rounded-lg px-4 py-5 flex-row items-center justify-between')]}>
-          <Text style={[{ color: pickerColorsText[logColor] }, tailwind('text-2xl font-semibold')]}>{name}</Text>
+          <Text style={[logColor ? { color: pickerColorsText[logColor] } : tailwind('text-gray-300'), tailwind('text-2xl font-semibold')]}>{name}</Text>
         </Pressable>
       </Swipeable>
     </View>
