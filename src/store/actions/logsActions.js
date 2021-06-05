@@ -174,6 +174,9 @@ export const fetchItems = (logId) => {
                 if (item.edited) {
                   item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
                 }
+                if (item.resetOn) {
+                  item.resetOn = formatDate(item.resetOn.toDate(), 'M/d/yyyy');
+                }
                 return item;
               });
 
