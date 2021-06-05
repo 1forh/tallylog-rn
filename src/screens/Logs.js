@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation } from 'react-native';
+import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
 import { BlurView } from 'expo-blur';
@@ -9,13 +9,14 @@ import TopBar from '@components/TopBar';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon } from 'react-native-heroicons/solid';
 import { fetchLogs } from '@store/actions/logsActions';
+import { gray } from '@utils/colors';
 
 export default function Logs({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
   const logs = useSelector((state) => state.logsReducer.logs);
 
-  const goToAddItem = () => {
+  const goToAddLog = () => {
     if (Platform.OS !== 'web') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     }
@@ -44,14 +45,17 @@ export default function Logs({ navigation }) {
               </View>
             ))
           ) : (
-            <View></View>
+            <Pressable onPress={goToAddLog} style={tailwind('pt-10 justify-center items-center')}>
+              <PlusIcon style={tailwind('mb-3')} color={gray[300]} size={48} />
+              <Text style={tailwind('text-xl text-gray-200 text-center')}>Add a log to get started</Text>
+            </Pressable>
           )}
         </Container>
       </ScrollView>
 
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={goToAddItem}
+        onPress={goToAddLog}
         style={{
           shadowColor: '#000',
           shadowOffset: {

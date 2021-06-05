@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation } from 'react-native';
+import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
 import { BlurView } from 'expo-blur';
@@ -9,7 +9,7 @@ import TopBar from '@components/TopBar';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon, StarIcon } from 'react-native-heroicons/solid';
 import { fetchItems, markLogAsFavorite } from '@store/actions/logsActions';
-import { yellow } from '@utils/colors';
+import { yellow, gray } from '@utils/colors';
 
 export default function LogItems({ navigation, isFavorites }) {
   const dispatch = useDispatch();
@@ -59,7 +59,10 @@ export default function LogItems({ navigation, isFavorites }) {
               </View>
             ))
           ) : (
-            <View></View>
+            <Pressable onPress={goToAddItem} style={tailwind('pt-10 justify-center items-center')}>
+              <PlusIcon style={tailwind('mb-3')} color={gray[300]} size={48} />
+              <Text style={tailwind('text-xl text-gray-200 text-center')}>Add an item to start tallying</Text>
+            </Pressable>
           )}
         </Container>
       </ScrollView>
