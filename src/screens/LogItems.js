@@ -5,14 +5,13 @@ import { tailwind } from '@utils/tailwind';
 import LogItemPreview from '@components/LogItemPreview';
 import TopBar from '@components/TopBar';
 import * as Haptics from 'expo-haptics';
-import { PlusIcon, StarIcon } from 'react-native-heroicons/solid';
-import { fetchItems, markLogAsFavorite } from '@store/actions/logsActions';
-import { yellow, gray } from '@utils/colors';
+import { PlusIcon } from 'react-native-heroicons/solid';
+import { fetchItems } from '@store/actions/logsActions';
+import { gray } from '@utils/colors';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
 
 export default function LogItems({ navigation, isFavorites }) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userReducer.user);
   const log = useSelector((state) => state.logsReducer.log);
   const items = useSelector((state) => state.logsReducer.items);
   const { name } = log;
@@ -24,16 +23,6 @@ export default function LogItems({ navigation, isFavorites }) {
     navigation.navigate('AddItem');
   };
 
-  const FavoriteButton = () => {
-    return (
-      <View>
-        <TouchableOpacity onPress={() => dispatch(markLogAsFavorite(log.id, !log.favorite))} style={tailwind('w-10 h-10 justify-start justify-center')}>
-          <StarIcon color={log.favorite ? yellow[400] : '#ffffff'} size={28} />
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   useEffect(() => {
     dispatch(fetchItems(log.id));
   }, []);
@@ -41,7 +30,7 @@ export default function LogItems({ navigation, isFavorites }) {
   LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
   const topBar = (
-    <TopBar goBack={() => navigation.goBack()} style={tailwind('z-50')} iconType={isFavorites ? 'star' : 'left'} right={<FavoriteButton />}>
+    <TopBar goBack={() => navigation.goBack()} style={tailwind('z-50')} iconType={isFavorites ? 'star' : 'left'}>
       {name}
     </TopBar>
   );

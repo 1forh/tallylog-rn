@@ -55,17 +55,6 @@ export const editLogItem = (logId, itemId, updates) => {
   };
 };
 
-export const markLogAsFavorite = (logId, favorited) => {
-  return async (dispatch) => {
-    try {
-      await firebase.firestore().collection(`logs`).doc(logId).update({ favorite: favorited });
-      dispatch({ type: 'items/MARK_LOG_AS_FAVORITE', payload: favorited });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-};
-
 export const deleteItem = (logId, itemId) => {
   return async (dispatch) => {
     try {
