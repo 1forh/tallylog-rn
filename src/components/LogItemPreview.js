@@ -23,8 +23,6 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log }
     resetEveryLabel = 'This month';
   } else if (resetEvery === 'year') {
     resetEveryLabel = 'This year';
-  } else {
-    resetEveryLabel = 'Today';
   }
 
   const goToEditLogItem = () => {
@@ -89,7 +87,7 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log }
           <View style={tailwind('flex-row items-center')}>
             <View style={tailwind('mr-6')}>
               <Text style={tailwind('text-gray-400 text-xl -mb-1')}>{name}</Text>
-              {resetEvery !== 'never' && <Text style={tailwind('text-gray-500 text-base')}>{resetEveryLabel}</Text>}
+              {resetEveryLabel && <Text style={tailwind('text-gray-500 text-base')}>{resetEveryLabel}</Text>}
             </View>
             <LineChart style={{ width: 75, height: 60 }} data={historyTallies} svg={{ stroke: green[500], strokeWidth: 3 }} contentInset={{ top: 20, bottom: 20 }}></LineChart>
           </View>

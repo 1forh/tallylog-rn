@@ -7,7 +7,7 @@ export default function LogItemForm({ item, submit, buttonText }) {
   const [form, setForm] = useState({
     name: item?.name ?? '',
     goal: item?.goal ?? null,
-    resetEvery: item?.resetEvery ?? 'day',
+    resetEvery: item?.resetEvery ? item?.resetEvery : item ? 'never' : 'day',
   });
 
   const ResetButtonTally = ({ resetEvery, text, isActive = false }) => {
