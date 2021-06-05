@@ -6,12 +6,17 @@ import InputWithLabel from '@components/InputWithLabel';
 export default function LogItemForm({ item, submit, buttonText }) {
   const [form, setForm] = useState({
     name: item?.name ?? '',
+    goal: item?.goal ?? '',
   });
 
   return (
     <>
       <View style={tailwind('mb-6')}>
         <InputWithLabel label="Name" value={form.name} onChangeText={(text) => setForm({ ...form, name: text })} autoFocus={true} />
+      </View>
+
+      <View style={tailwind('mb-6 w-48')}>
+        <InputWithLabel label="Goal" value={form.goal} onChangeText={(text) => setForm({ ...form, goal: text })} keyboardType="number-pad" />
       </View>
 
       <View style={tailwind('flex justify-center mt-10 w-full items-center')}>

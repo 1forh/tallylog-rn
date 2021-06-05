@@ -15,6 +15,7 @@ export const deleteLog = (logId) => {
 export const createLog = (log) => {
   const { uid } = firebase.auth().currentUser;
 
+  log.name = log.name.trim();
   log.owner = uid;
   log.favorite = false;
   log.created = firebase.firestore.Timestamp.now();
@@ -29,6 +30,7 @@ export const createLog = (log) => {
 };
 
 export const editLog = (logId, updates) => {
+  updates.name = updates.name.trim();
   updates.edited = firebase.firestore.Timestamp.now();
 
   return async () => {
@@ -41,6 +43,7 @@ export const editLog = (logId, updates) => {
 };
 
 export const editLogItem = (logId, itemId, updates) => {
+  updates.name = updates.name.trim();
   updates.edited = firebase.firestore.Timestamp.now();
 
   return async () => {
@@ -75,6 +78,7 @@ export const deleteItem = (logId, itemId) => {
 };
 
 export const createItem = (logId, item) => {
+  item.name = item.name.trim();
   item.created = firebase.firestore.Timestamp.now();
   item.tally = 0;
 

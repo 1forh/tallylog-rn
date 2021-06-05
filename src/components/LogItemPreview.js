@@ -11,7 +11,7 @@ import { deleteItem } from '@store/actions/logsActions';
 export default function LogItemPreview({ navigate = () => {}, style, item, log }) {
   const dispatch = useDispatch();
   const swipeableRef = useRef(null);
-  const { name, tally, history } = item;
+  const { name, tally, history, goal } = item;
   const historyTallies = history.map((item) => item.tally).slice(0, 5);
 
   const goToEditLogItem = () => {
@@ -77,7 +77,10 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log }
             <Text style={tailwind('text-gray-400 text-xl mr-6')}>{name}</Text>
             <LineChart style={{ width: 75, height: 60 }} data={historyTallies} svg={{ stroke: green[500], strokeWidth: 3 }} contentInset={{ top: 20, bottom: 20 }}></LineChart>
           </View>
-          <Text style={tailwind('text-gray-400 text-4xl font-bold')}>{tally}</Text>
+          <Text style={[tailwind('font-bold'), goal ? tailwind('text-2xl') : tailwind(' text-4xl'), tally >= goal ? tailwind('text-green-500') : tailwind('text-gray-400')]}>
+            {tally}
+            {goal && <Text>/{goal}</Text>}
+          </Text>
         </Pressable>
       </Swipeable>
     </View>
