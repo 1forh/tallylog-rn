@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { tailwind } from '@tailwind';
 import InputWithLabel from '@components/InputWithLabel';
@@ -6,7 +6,7 @@ import InputWithLabel from '@components/InputWithLabel';
 export default function LogItemForm({ item, submit, buttonText }) {
   const [form, setForm] = useState({
     name: item?.name ?? '',
-    goal: item?.goal ?? '',
+    goal: item?.goal ?? null,
   });
 
   return (

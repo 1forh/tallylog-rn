@@ -10,14 +10,15 @@ import { incrementTally, decrementTally } from '@store/actions/logsActions';
 
 export default function LogItem({ navigation }) {
   const dispatch = useDispatch();
-  const { tally, name, id } = useSelector((state) => state.logsReducer.item);
+  const { tally, name, id: itemId } = useSelector((state) => state.logsReducer.item);
+  const { id: logId } = useSelector((state) => state.logsReducer.log);
 
   const increment = (by) => {
-    dispatch(incrementTally(id, by));
+    dispatch(incrementTally(logId, itemId, by));
   };
 
   const decrement = (by) => {
-    dispatch(decrementTally(id, by));
+    dispatch(decrementTally(logId, itemId, by));
   };
 
   return (
