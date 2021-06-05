@@ -16,13 +16,15 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log }
 
   let resetEveryLabel;
   if (resetEvery === 'day') {
-    resetEveryLabel = 'Resets daily';
+    resetEveryLabel = 'Today';
   } else if (resetEvery === 'week') {
-    resetEveryLabel = 'Resets on Monday';
+    resetEveryLabel = 'This week';
   } else if (resetEvery === 'month') {
-    resetEveryLabel = 'Resets monthly';
+    resetEveryLabel = 'This month';
+  } else if (resetEvery === 'year') {
+    resetEveryLabel = 'This year';
   } else {
-    resetEveryLabel = 'Resets daily';
+    resetEveryLabel = 'Today';
   }
 
   const goToEditLogItem = () => {
@@ -86,8 +88,8 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log }
         <Pressable onPress={goTo} style={tailwind('bg-gray-800 rounded-lg px-4 py-2 flex-row items-center justify-between')}>
           <View style={tailwind('flex-row items-center')}>
             <View style={tailwind('mr-6')}>
-              <Text style={tailwind('text-gray-400 text-xl')}>{name}</Text>
-              {resetEvery !== 'never' && <Text style={tailwind('text-gray-600 text-base')}>{resetEveryLabel}</Text>}
+              <Text style={tailwind('text-gray-400 text-xl -mb-1')}>{name}</Text>
+              {resetEvery !== 'never' && <Text style={tailwind('text-gray-500 text-base')}>{resetEveryLabel}</Text>}
             </View>
             <LineChart style={{ width: 75, height: 60 }} data={historyTallies} svg={{ stroke: green[500], strokeWidth: 3 }} contentInset={{ top: 20, bottom: 20 }}></LineChart>
           </View>
