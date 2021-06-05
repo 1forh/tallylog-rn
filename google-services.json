@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "895186639982",
+    "project_id": "tally-log--live",
+    "storage_bucket": "tally-log--live.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895186639982:android:332373b9ea51c0a3521a7f",
+        "android_client_info": {
+          "package_name": "com.skycatchfire.TallyLog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895186639982-u1a2ig6q35p1kjt38mvodsdlbun2mbkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOIi5930sGBK66oKKj9ZdM0u52Fl0ufZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895186639982-u1a2ig6q35p1kjt38mvodsdlbun2mbkb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "895186639982-6sbb3acphqsfn1ufsq9gcs3u0fq17her.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.skycatchfire.TallyLog"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

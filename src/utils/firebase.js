@@ -11,7 +11,7 @@ const firebaseConfig = {
   storageBucket: 'tally-log--live.appspot.com',
   messagingSenderId: 'sender-id',
   appId: '1:895186639982:ios:29056c18514424b1521a7f',
-  measurementId: 'G-measurement-id',
+  measurementId: 'G-4D2VJL5FWB',
 };
 
 if (!firebase.apps.length) {

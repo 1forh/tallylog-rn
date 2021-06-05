@@ -18,13 +18,16 @@
       "supportsTablet": true,
       "userInterfaceStyle": "dark",
       "backgroundColor": "#171717",
-      "bundleIdentifier": "com.skycatchfire.TallyLog"
+      "bundleIdentifier": "com.skycatchfire.TallyLog",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#171717"
-      }
+      },
+      "package": "com.skycatchfire.TallyLog",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
