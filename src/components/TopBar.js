@@ -8,27 +8,25 @@ import { tailwind } from '@tailwind';
 export default function TopBar({ goBack, children, style, iconType = 'left', right }) {
   const getIcon = () => {
     if (iconType === 'left') {
-      return <ChevronLeftIcon color={gray[400]} size={36} style={tailwind('-ml-2')} />;
+      return <ChevronLeftIcon color={gray[400]} size={28} style={tailwind('-ml-2')} />;
     } else if (iconType === 'down') {
-      return <ChevronDownIcon color={gray[400]} size={36} style={tailwind('-ml-2')} />;
-    } else if (iconType === 'star') {
-      return <StarIcon color={yellow[400]} size={28} />;
+      return <ChevronDownIcon color={gray[400]} size={28} style={tailwind('-ml-2')} />;
     }
     return;
   };
   return (
-    <Container style={{ ...style, ...tailwind('flex-row py-3 items-center justify-between') }}>
-      <View style={tailwind('flex-row py-3 items-center')}>
+    <Container style={{ ...style, ...tailwind('flex-row py-1 items-center justify-between') }}>
+      <View style={tailwind('flex-row py-1 items-center')}>
         {iconType === 'star' ? (
-          <View style={tailwind('w-10 h-10 justify-start justify-center')}>{getIcon()}</View>
+          <View style={tailwind('w-6 h-10 justify-start justify-center')}>{getIcon()}</View>
         ) : (
           goBack && (
-            <TouchableOpacity onPress={goBack} style={tailwind('w-10 h-10 justify-start justify-center')}>
+            <TouchableOpacity onPress={goBack} style={tailwind('w-6 h-10 justify-start justify-center')}>
               {getIcon()}
             </TouchableOpacity>
           )
         )}
-        {children && <Text style={tailwind(`font-black text-2xl text-gray-400`)}>{children}</Text>}
+        {children && <Text style={tailwind(`font-black text-lg text-gray-400`)}>{children}</Text>}
       </View>
       {right && iconType !== 'star' && <View>{right}</View>}
     </Container>
