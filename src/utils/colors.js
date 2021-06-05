@@ -9,8 +9,10 @@ export const gray = {
 };
 
 export const blue = {
+  50: '#EFF6FF',
   500: '#3B82F6',
   800: '#1E40AF',
+  900: '#1E3A8A',
 };
 
 export const red = {
@@ -21,10 +23,38 @@ export const red = {
 };
 
 export const yellow = {
+  50: '#FFFBEB',
   400: '#FACC15',
   500: '#EAB308',
+  700: '#B45309',
 };
 
 export const green = {
+  50: '#ECFDF5',
   500: '#84CC16',
+  800: '#065F46',
+};
+
+export const indigo = {
+  50: '#EEF2FF',
+  500: '#6366F1',
+  800: '#3730A3',
+};
+
+export const pickerColors = {
+  green: green[500],
+  yellow: yellow[500],
+  indigo: indigo[500],
+};
+
+export const pickerColorsText = {
+  green: green[800],
+  yellow: yellow[700],
+  indigo: indigo[50],
+};
+
+export const pickerColorsBorder = {
+  green: green[50],
+  yellow: yellow[50],
+  indigo: indigo[50],
 };

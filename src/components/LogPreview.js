@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, I18nManager, Animated, Pressable, Alert } from 'react-native';
 import { tailwind } from '@utils/tailwind';
-import { gray, red } from '@utils/colors';
+import { gray, red, green, blue, yellow, indigo, pickerColors, pickerColorsText } from '@utils/colors';
 import { useDispatch } from 'react-redux';
 import { deleteLog } from '@store/actions/logsActions';
 import { TrashIcon, PencilAltIcon } from 'react-native-heroicons/solid';
@@ -10,7 +10,7 @@ import { Swipeable } from 'react-native-gesture-handler';
 export default function LogPreview({ navigate = () => {}, style, log }) {
   const dispatch = useDispatch();
   const swipeableRef = useRef(null);
-  const { name, tally } = log;
+  const { name, tally, color: logColor } = log;
 
   const goToLog = () => {
     dispatch({ type: 'items/SET_LOG', payload: log });
@@ -68,10 +68,10 @@ export default function LogPreview({ navigate = () => {}, style, log }) {
   );
 
   return (
-    <View style={tailwind('bg-gray-800 rounded-lg overflow-hidden')}>
+    <View style={[logColor ? { backgroundColor: pickerColors[logColor] } : tailwind('bg-gray-800'), tailwind('rounded-lg overflow-hidden')]}>
       <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
-        <Pressable onPress={goToLog} style={tailwind('bg-gray-800 rounded-lg px-4 py-5 flex-row items-center justify-between')}>
-          <Text style={tailwind('text-gray-400 text-2xl')}>{name}</Text>
+        <Pressable onPress={goToLog} style={[logColor ? { backgroundColor: pickerColors[logColor] } : tailwind('bg-gray-800'), tailwind('rounded-lg px-4 py-5 flex-row items-center justify-between')]}>
+          <Text style={[{ color: pickerColorsText[logColor] }, tailwind('text-2xl font-semibold')]}>{name}</Text>
         </Pressable>
       </Swipeable>
     </View>
