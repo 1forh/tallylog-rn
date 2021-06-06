@@ -41,23 +41,60 @@ export const indigo = {
   800: '#3730A3',
 };
 
+export const purple = {
+  50: '#F5F3FF',
+  500: '#8B5CF6',
+  800: '#5B21B6',
+};
+
+export const pink = {
+  50: '#FDF2F8',
+  500: '#EC4899',
+  800: '#9D174D',
+  900: '#831843',
+};
+
+export const rose = {
+  50: '#FFF1F2',
+  500: '#F43F5E',
+  800: '#9F1239',
+};
+
+export const teal = {
+  50: '#F0FDFA',
+  500: '#14B8A6',
+  800: '#115E59',
+};
+
 export const pickerColors = {
   gray: gray[800],
   green: green[500],
-  yellow: yellow[500],
+  teal: teal[500],
   indigo: indigo[500],
+  purple: purple[500],
+  pink: pink[500],
+  rose: rose[500],
+  yellow: yellow[500],
 };
 
 export const pickerColorsText = {
   gray: gray[300],
   green: green[800],
+  teal: teal[800],
   yellow: yellow[700],
   indigo: indigo[50],
+  purple: purple[50],
+  pink: pink[50],
+  rose: rose[50],
 };
 
 export const pickerColorsBorder = {
   gray: gray[300],
   green: green[50],
+  teal: teal[50],
   yellow: yellow[50],
   indigo: indigo[50],
+  purple: purple[50],
+  pink: pink[50],
+  rose: rose[50],
 };

@@ -9,10 +9,10 @@ export default function ColorPicker({ color, pick }) {
       <View>
         <Text style={[tailwind(`mb-2 font-bold text-lg text-gray-400`)]}>Color</Text>
       </View>
-      <View style={[tailwind(`flex-row flex-wrap`)]}>
+      <View style={[tailwind(`flex-row flex-wrap -mb-5`)]}>
         {Object.keys(pickerColors).map((colorKey) => {
           return (
-            <TouchableOpacity onPress={() => pick(colorKey)} key={colorKey} activeOpacity={0.6} style={tailwind('w-14 h-14 mr-4')}>
+            <TouchableOpacity onPress={() => pick(colorKey)} key={colorKey} activeOpacity={0.6} style={tailwind('w-14 h-14 mr-5 mb-5')}>
               <View
                 style={[
                   {
