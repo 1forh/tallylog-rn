@@ -1,5 +1,5 @@
 import { firebase } from '@utils/firebase';
-import { format as formatDate } from 'date-fns';
+import { format as formatDate, formatDistanceStrict } from 'date-fns';
 
 export const deleteLog = (logId) => {
   return async (dispatch) => {
@@ -96,7 +96,11 @@ export const incrementTally = (logId, itemId, by) => {
   return async (dispatch) => {
     try {
       dispatch({ type: 'items/INCREMENT_LOG_ITEM_TALLY', payload: by });
-      await firebase.firestore().collection(`logs/${logId}/items`).doc(itemId).update('tally', firebase.firestore.FieldValue.increment(by));
+      await firebase
+        .firestore()
+        .collection(`logs/${logId}/items`)
+        .doc(itemId)
+        .update({ tally: firebase.firestore.FieldValue.increment(by), tallyUpdated: firebase.firestore.Timestamp.now() });
     } catch (error) {
       dispatch({ type: 'items/DECREMENT_LOG_ITEM_TALLY', payload: by });
       console.error(error);
@@ -112,7 +116,7 @@ export const decrementTally = (logId, itemId, by) => {
         .firestore()
         .collection(`logs/${logId}/items`)
         .doc(itemId)
-        .update('tally', firebase.firestore.FieldValue.increment(by * -1));
+        .update({ tally: firebase.firestore.FieldValue.increment(by * -1), tallyUpdated: firebase.firestore.Timestamp.now() });
     } catch (error) {
       dispatch({ type: 'items/INCREMENT_LOG_ITEM_TALLY', payload: by });
       console.error(error);
@@ -176,6 +180,9 @@ export const fetchItems = (logId) => {
                 }
                 if (item.resetOn) {
                   item.resetOn = formatDate(item.resetOn.toDate(), 'M/d/yyyy');
+                }
+                if (item.tallyUpdated) {
+                  item.tallyUpdated = formatDistanceStrict(item.tallyUpdated.toDate(), new Date(), { addSuffix: true });
                 }
                 return item;
               });

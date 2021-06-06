@@ -26,7 +26,7 @@ export default function EditLogItem({ navigation }) {
           </TopBar>
         }
       >
-        <LogItemForm submit={submit} item={item} buttonText="Edit log" />
+        <LogItemForm submit={submit} item={item} buttonText="Save changes" />
       </BlurredTopWrapper>
     </SafeAreaView>
   );

@@ -25,7 +25,7 @@ export default function EditLog({ navigation }) {
           </TopBar>
         }
       >
-        <LogForm submit={submit} log={log} buttonText="Edit log" />
+        <LogForm submit={submit} log={log} buttonText="Save changes" />
       </BlurredTopWrapper>
     </SafeAreaView>
   );
