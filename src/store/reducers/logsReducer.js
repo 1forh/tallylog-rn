@@ -2,6 +2,8 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 
 export const setLogs = createAction('items/SET_LOGS');
 export const setLog = createAction('items/SET_LOG');
+export const setLogsLoading = createAction('items/SET_LOGS_LOADING');
+export const setItemsLoading = createAction('items/SET_ITEMS_LOADING');
 export const removeLog = createAction('items/REMOVE_LOG');
 export const setItems = createAction('items/SET_ITEMS');
 export const setItem = createAction('items/SET_ITEM');
@@ -12,8 +14,10 @@ export const decrementLogItemTally = createAction('items/DECREMENT_LOG_ITEM_TALL
 
 const initialState = {
   logs: [],
+  logsLoading: false,
   log: {},
   items: [],
+  itemsLoading: false,
   item: {},
 };
 
@@ -44,6 +48,12 @@ const logsReducer = createReducer(initialState, {
   },
   [decrementLogItemTally]: (state, action) => {
     state.item.tally -= action.payload;
+  },
+  [setLogsLoading]: (state, action) => {
+    state.logsLoading = action.payload;
+  },
+  [setItemsLoading]: (state, action) => {
+    state.itemsLoading = action.payload;
   },
 });
 

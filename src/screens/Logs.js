@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, Text, View, TouchableOpacity, Platform, LayoutAnimation, Pressable } from 'react-native';
+import { SafeAreaView, Text, View, TouchableOpacity, Platform, LayoutAnimation, Pressable, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
 import LogPreview from '@components/LogPreview';
@@ -7,12 +7,13 @@ import TopBar from '@components/TopBar';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon } from 'react-native-heroicons/solid';
-import { fetchLogs } from '@store/actions/logsActions';
-import { gray } from '@utils/colors';
+import { fetchLogs, logsLoading } from '@store/actions/logsActions';
+import { gray, blue } from '@utils/colors';
 
 export default function Logs({ navigation }) {
   const dispatch = useDispatch();
   const logs = useSelector((state) => state.logsReducer.logs);
+  const logsLoading = useSelector((state) => state.logsReducer.logsLoading);
 
   const goToAddLog = () => {
     if (Platform.OS !== 'web') {
@@ -20,7 +21,6 @@ export default function Logs({ navigation }) {
     }
     navigation.navigate('AddLog');
   };
-
   useEffect(() => {
     dispatch(fetchLogs());
   }, []);
@@ -30,7 +30,11 @@ export default function Logs({ navigation }) {
   return (
     <SafeAreaView style={tailwind('flex-1')}>
       <BlurredTopWrapper topBar={<TopBar style={tailwind('z-50')}>My Logs</TopBar>}>
-        {logs.length > 0 ? (
+        {logsLoading ? (
+          <View style={tailwind('flex-1 items-center justify-center pt-20')}>
+            <ActivityIndicator size="large" color={blue[500]} />
+          </View>
+        ) : logs.length > 0 ? (
           logs.map((log) => (
             <View style={tailwind('mb-4')} key={log.id}>
               <LogPreview navigate={navigation.navigate} log={log} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation, Pressable } from 'react-native';
+import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation, Pressable, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
 import LogItemPreview from '@components/LogItemPreview';
@@ -7,13 +7,14 @@ import TopBar from '@components/TopBar';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon } from 'react-native-heroicons/solid';
 import { fetchItems } from '@store/actions/logsActions';
-import { gray } from '@utils/colors';
+import { gray, blue } from '@utils/colors';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
 
 export default function LogItems({ navigation, isFavorites }) {
   const dispatch = useDispatch();
   const log = useSelector((state) => state.logsReducer.log);
   const items = useSelector((state) => state.logsReducer.items);
+  const itemsLoading = useSelector((state) => state.logsReducer.itemsLoading);
   const { name } = log;
 
   const goToAddItem = () => {
@@ -38,7 +39,11 @@ export default function LogItems({ navigation, isFavorites }) {
   return (
     <SafeAreaView style={tailwind('flex-1')}>
       <BlurredTopWrapper topBar={topBar}>
-        {items.length > 0 ? (
+        {itemsLoading ? (
+          <View style={tailwind('flex-1 items-center justify-center pt-20')}>
+            <ActivityIndicator size="large" color={blue[500]} />
+          </View>
+        ) : items.length > 0 ? (
           items.map((item) => (
             <View style={tailwind('mb-4')} key={item.id}>
               <LogItemPreview navigate={navigation.navigate} item={item} log={log} />

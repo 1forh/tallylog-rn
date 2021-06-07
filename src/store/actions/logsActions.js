@@ -125,88 +125,88 @@ export const decrementTally = (logId, itemId, by) => {
 };
 
 export const fetchLogs = () => {
-  try {
-    return async (dispatch) => {
-      try {
-        const { uid } = firebase.auth().currentUser;
+  return async (dispatch) => {
+    dispatch({ type: 'items/SET_LOGS_LOADING', payload: true });
 
-        const unsubscribe = await firebase
-          .firestore()
-          .collection(`logs`)
-          .where('owner', '==', uid)
-          .onSnapshot(async (snapshot) => {
-            const logs = snapshot.docs
-              .map((doc) => {
-                return { id: doc.id, ...doc.data() };
-              })
-              .map((item) => {
-                item.created = formatDate(item.created.toDate(), 'M/d/yyyy');
+    try {
+      const { uid } = firebase.auth().currentUser;
 
-                if (item.edited) {
-                  item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
-                }
-                return item;
-              });
+      const unsubscribe = firebase
+        .firestore()
+        .collection(`logs`)
+        .where('owner', '==', uid)
+        .onSnapshot(async (snapshot) => {
+          const logs = snapshot.docs
+            .map((doc) => {
+              return { id: doc.id, ...doc.data() };
+            })
+            .map((item) => {
+              item.created = formatDate(item.created.toDate(), 'M/d/yyyy');
 
-            dispatch({ type: 'items/SET_LOGS', payload: logs });
-          });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  } catch (error) {
-    console.log(error);
-  }
+              if (item.edited) {
+                item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
+              }
+              return item;
+            });
+
+          dispatch({ type: 'items/SET_LOGS', payload: logs });
+          dispatch({ type: 'items/SET_LOGS_LOADING', payload: false });
+        });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: 'items/SET_LOGS_LOADING', payload: false });
+    }
+  };
 };
 
 export const fetchItems = (logId) => {
-  try {
-    return async (dispatch) => {
-      try {
-        const unsubscribe = await firebase
-          .firestore()
-          .collection(`logs`)
-          .doc(logId)
-          .collection('items')
-          .onSnapshot(async (snapshot) => {
-            const items = snapshot.docs
-              .map((doc) => {
-                return { id: doc.id, ...doc.data() };
-              })
+  return async (dispatch) => {
+    dispatch({ type: 'items/SET_ITEMS_LOADING', payload: true });
+
+    try {
+      const unsubscribe = firebase
+        .firestore()
+        .collection(`logs`)
+        .doc(logId)
+        .collection('items')
+        .onSnapshot(async (snapshot) => {
+          const items = snapshot.docs
+            .map((doc) => {
+              return { id: doc.id, ...doc.data() };
+            })
+            .map((item) => {
+              item.created = formatDate(item.created.toDate(), 'M/d/yyyy');
+              if (item.edited) {
+                item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
+              }
+              if (item.resetOn) {
+                item.resetOn = formatDate(item.resetOn.toDate(), 'M/d/yyyy');
+              }
+              if (item.tallyUpdated) {
+                item.tallyUpdated = formatDistanceStrict(item.tallyUpdated.toDate(), new Date(), { addSuffix: true });
+              }
+              return item;
+            });
+
+          for (const item of items) {
+            const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date').limit(10).get();
+            const history = historySnapshot.docs
+              .map((doc) => ({ id: doc.id, ...doc.data() }))
               .map((item) => {
-                item.created = formatDate(item.created.toDate(), 'M/d/yyyy');
-                if (item.edited) {
-                  item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
-                }
-                if (item.resetOn) {
-                  item.resetOn = formatDate(item.resetOn.toDate(), 'M/d/yyyy');
-                }
-                if (item.tallyUpdated) {
-                  item.tallyUpdated = formatDistanceStrict(item.tallyUpdated.toDate(), new Date(), { addSuffix: true });
+                if (item.date) {
+                  item.date = formatDate(item.date.toDate(), 'M/d/yyyy');
                 }
                 return item;
               });
+            item.history = history;
+          }
 
-            for (const item of items) {
-              const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date').limit(10).get();
-              const history = historySnapshot.docs
-                .map((doc) => ({ id: doc.id, ...doc.data() }))
-                .map((item) => {
-                  if (item.date) {
-                    item.date = formatDate(item.date.toDate(), 'M/d/yyyy');
-                  }
-                  return item;
-                });
-              item.history = history;
-            }
-
-            dispatch({ type: 'items/SET_ITEMS', payload: items });
-          });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  } catch (error) {
-    console.log(error);
-  }
+          dispatch({ type: 'items/SET_ITEMS', payload: items });
+          dispatch({ type: 'items/SET_ITEMS_LOADING', payload: false });
+        });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: 'items/SET_ITEMS_LOADING', payload: false });
+    }
+  };
 };
