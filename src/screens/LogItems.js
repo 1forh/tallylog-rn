@@ -59,7 +59,7 @@ export default function LogItems({ navigation, isFavorites }) {
           <View style={tailwind('z-50')}>{topBar}</View>
         </View>
 
-        <Container style={tailwind('flex-1 pt-5')}>
+        <Container style={tailwind('flex-1 mt-5')}>
           {itemsLoading ? (
             <View style={tailwind('flex-1 items-center justify-center')}>
               <ActivityIndicator size="large" color={blue[500]} />
