@@ -1,5 +1,4 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
-import { format as formatDate } from 'date-fns';
 
 export const setLogs = createAction('items/SET_LOGS');
 export const setLog = createAction('items/SET_LOG');
@@ -58,7 +57,7 @@ const logsReducer = createReducer(initialState, {
 
     state.items = state.items.map((item) => {
       if (item.id === action.payload.itemId) {
-        item = { ...item, tally: state.item.tally };
+        item = { ...item, tally: state.item.tally, tallyUpdated: 'a second ago' };
       }
       return item;
     });
@@ -68,7 +67,7 @@ const logsReducer = createReducer(initialState, {
 
     state.items = state.items.map((item) => {
       if (item.id === action.payload.itemId) {
-        item = { ...item, tally: state.item.tally };
+        item = { ...item, tally: state.item.tally, tallyUpdated: 'a second ago' };
       }
       return item;
     });
