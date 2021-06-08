@@ -1,4 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
+import { format as formatDate } from 'date-fns';
 
 export const setLogs = createAction('items/SET_LOGS');
 export const setLog = createAction('items/SET_LOG');
@@ -7,6 +8,7 @@ export const setItemsLoading = createAction('items/SET_ITEMS_LOADING');
 export const removeLog = createAction('items/REMOVE_LOG');
 export const setItems = createAction('items/SET_ITEMS');
 export const setItem = createAction('items/SET_ITEM');
+export const updateItem = createAction('items/UPDATE_ITEM');
 export const removeItem = createAction('items/REMOVE_ITEM');
 export const markLogAsFavorite = createAction('items/MARK_LOG_AS_FAVORITE');
 export const incrementLogItemTally = createAction('items/INCREMENT_LOG_ITEM_TALLY');
@@ -14,10 +16,10 @@ export const decrementLogItemTally = createAction('items/DECREMENT_LOG_ITEM_TALL
 
 const initialState = {
   logs: [],
-  logsLoading: false,
+  logsLoading: true,
   log: {},
   items: [],
-  itemsLoading: false,
+  itemsLoading: true,
   item: {},
 };
 
@@ -42,6 +44,14 @@ const logsReducer = createReducer(initialState, {
   },
   [removeItem]: (state, action) => {
     state.items = state.items.filter((item) => item.id !== action.payload);
+  },
+  [updateItem]: (state, action) => {
+    state.items = state.items.map((item) => {
+      if (item.id === action.payload.itemId) {
+        item = { ...item, ...action.payload.updates };
+      }
+      return item;
+    });
   },
   [incrementLogItemTally]: (state, action) => {
     state.item.tally += action.payload;

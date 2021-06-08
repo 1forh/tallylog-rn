@@ -8,11 +8,11 @@ import { LineChart } from 'react-native-svg-charts';
 import { Swipeable } from 'react-native-gesture-handler';
 import { deleteItem } from '@store/actions/logsActions';
 
-export default function LogItemPreview({ navigate = () => {}, style, item, log }) {
+export default function LogItemPreview({ navigate = () => {}, style, item, log, onLongPress }) {
   const dispatch = useDispatch();
   const swipeableRef = useRef(null);
   const { name, tally, history, goal, resetEvery, tallyUpdated } = item;
-  const historyTallies = history.map((item) => item.tally).slice(0, 10);
+  const historyTallies = history?.map((item) => item.tally).slice(0, 10) ?? [];
 
   let resetEveryLabel;
   if (resetEvery === 'day') {
@@ -83,7 +83,7 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log }
   return (
     <View style={tailwind('bg-gray-800 rounded-lg overflow-hidden')}>
       <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
-        <Pressable onPress={goTo} style={tailwind('bg-gray-800 rounded-lg px-4 py-2 flex-row items-center justify-between')}>
+        <Pressable onPress={goTo} onLongPress={onLongPress} style={tailwind('bg-gray-800 rounded-lg px-4 py-2 flex-row items-center justify-between')}>
           <View style={tailwind('flex-row items-center')}>
             <View style={tailwind('mr-6')}>
               <Text style={tailwind('text-gray-400 text-xl -mb-1')}>{name}</Text>

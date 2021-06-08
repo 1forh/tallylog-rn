@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, ScrollView, View, TouchableOpacity, Platform, LayoutAnimation, Pressable, ActivityIndicator } from 'react-native';
+import React, { useCallback, useEffect } from 'react';
+import { SafeAreaView, Text, View, TouchableOpacity, Platform, LayoutAnimation, Pressable, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { tailwind } from '@utils/tailwind';
 import LogItemPreview from '@components/LogItemPreview';
 import TopBar from '@components/TopBar';
+import Container from '@components/Container';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon } from 'react-native-heroicons/solid';
-import { fetchItems } from '@store/actions/logsActions';
+import { fetchItems, updateItemOrder } from '@store/actions/logsActions';
 import { gray, blue } from '@utils/colors';
-import BlurredTopWrapper from '@components/BlurredTopWrapper';
+// import BlurredTopWrapper from '@components/BlurredTopWrapper';
+import DraggableFlatList from 'react-native-draggable-flatlist';
+import { BlurView } from 'expo-blur';
 
 export default function LogItems({ navigation, isFavorites }) {
   const dispatch = useDispatch();
@@ -24,11 +27,23 @@ export default function LogItems({ navigation, isFavorites }) {
     navigation.navigate('AddItem');
   };
 
+  const onDragEnd = (data, from, to) => {
+    dispatch(updateItemOrder(log.id, data));
+  };
+
+  const renderItem = useCallback(({ item, index, drag, isActive }) => {
+    return (
+      <View style={tailwind('mb-4')}>
+        <LogItemPreview navigate={navigation.navigate} item={item} log={log} onLongPress={drag} />
+      </View>
+    );
+  }, []);
+
   useEffect(() => {
     dispatch(fetchItems(log.id));
   }, []);
 
-  LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
   const topBar = (
     <TopBar goBack={() => navigation.goBack()} style={tailwind('z-50')} iconType={isFavorites ? 'star' : 'left'}>
@@ -38,24 +53,27 @@ export default function LogItems({ navigation, isFavorites }) {
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
-      <BlurredTopWrapper topBar={topBar}>
-        {itemsLoading ? (
-          <View style={tailwind('flex-1 items-center justify-center pt-20')}>
-            <ActivityIndicator size="large" color={blue[500]} />
-          </View>
-        ) : items.length > 0 ? (
-          items.map((item) => (
-            <View style={tailwind('mb-4')} key={item.id}>
-              <LogItemPreview navigate={navigation.navigate} item={item} log={log} />
+      <View style={tailwind('flex-1')} stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false} contentInsetAdjustmentBehavior="always" scrollEventThrottle={32}>
+        <View style={tailwind('relative')}>
+          <BlurView style={tailwind('absolute w-full h-full z-10')} intensity={75} tint="dark" />
+          <View style={tailwind('z-50')}>{topBar}</View>
+        </View>
+
+        <Container style={tailwind('flex-1 pt-5')}>
+          {itemsLoading ? (
+            <View style={tailwind('flex-1 items-center justify-center')}>
+              <ActivityIndicator size="large" color={blue[500]} />
             </View>
-          ))
-        ) : (
-          <Pressable onPress={goToAddItem} style={tailwind('pt-10 justify-center items-center')}>
-            <PlusIcon style={tailwind('mb-3')} color={gray[300]} size={48} />
-            <Text style={tailwind('text-xl text-gray-200 text-center')}>Add an item to start tallying</Text>
-          </Pressable>
-        )}
-      </BlurredTopWrapper>
+          ) : items.length > 0 ? (
+            <DraggableFlatList data={items} renderItem={renderItem} keyExtractor={(item, index) => `draggable-item-${item.id}`} onDragEnd={({ data, from, to }) => onDragEnd(data, from, to)} />
+          ) : (
+            <Pressable onPress={goToAddItem} style={tailwind('pt-10 justify-center items-center')}>
+              <PlusIcon style={tailwind('mb-3')} color={gray[300]} size={48} />
+              <Text style={tailwind('text-xl text-gray-200 text-center')}>Add an item to start tallying</Text>
+            </Pressable>
+          )}
+        </Container>
+      </View>
 
       <TouchableOpacity
         activeOpacity={0.7}
