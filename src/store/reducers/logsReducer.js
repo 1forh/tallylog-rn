@@ -54,10 +54,24 @@ const logsReducer = createReducer(initialState, {
     });
   },
   [incrementLogItemTally]: (state, action) => {
-    state.item.tally += action.payload;
+    state.item.tally += action.payload.by;
+
+    state.items = state.items.map((item) => {
+      if (item.id === action.payload.itemId) {
+        item = { ...item, tally: state.item.tally };
+      }
+      return item;
+    });
   },
   [decrementLogItemTally]: (state, action) => {
-    state.item.tally -= action.payload;
+    state.item.tally -= action.payload.by;
+
+    state.items = state.items.map((item) => {
+      if (item.id === action.payload.itemId) {
+        item = { ...item, tally: state.item.tally };
+      }
+      return item;
+    });
   },
   [setLogsLoading]: (state, action) => {
     state.logsLoading = action.payload;

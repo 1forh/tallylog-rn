@@ -94,14 +94,14 @@ export const createItem = (logId, item) => {
 export const incrementTally = (logId, itemId, by) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: 'items/INCREMENT_LOG_ITEM_TALLY', payload: by });
+      dispatch({ type: 'items/INCREMENT_LOG_ITEM_TALLY', payload: { by, itemId } });
       await firebase
         .firestore()
         .collection(`logs/${logId}/items`)
         .doc(itemId)
         .update({ tally: firebase.firestore.FieldValue.increment(by), tallyUpdated: firebase.firestore.Timestamp.now() });
     } catch (error) {
-      dispatch({ type: 'items/DECREMENT_LOG_ITEM_TALLY', payload: by });
+      dispatch({ type: 'items/DECREMENT_LOG_ITEM_TALLY', payload: { by, itemId } });
       console.error(error);
     }
   };
@@ -110,14 +110,14 @@ export const incrementTally = (logId, itemId, by) => {
 export const decrementTally = (logId, itemId, by) => {
   return async (dispatch) => {
     try {
-      dispatch({ type: 'items/DECREMENT_LOG_ITEM_TALLY', payload: by });
+      dispatch({ type: 'items/DECREMENT_LOG_ITEM_TALLY', payload: { by, itemId } });
       await firebase
         .firestore()
         .collection(`logs/${logId}/items`)
         .doc(itemId)
         .update({ tally: firebase.firestore.FieldValue.increment(by * -1), tallyUpdated: firebase.firestore.Timestamp.now() });
     } catch (error) {
-      dispatch({ type: 'items/INCREMENT_LOG_ITEM_TALLY', payload: by });
+      dispatch({ type: 'items/INCREMENT_LOG_ITEM_TALLY', payload: { by, itemId } });
       console.error(error);
     }
   };
