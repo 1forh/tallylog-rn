@@ -1,6 +1,35 @@
 import { firebase } from '@utils/firebase';
 import { format as formatDate, formatDistanceStrict } from 'date-fns';
 
+const getItemHistory = async (logId, item, limit = 5) => {
+  const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date').limit(limit).get();
+  const history = historySnapshot.docs
+    .map((doc) => ({ id: doc.id, ...doc.data() }))
+    .map((item) => {
+      if (item.date) {
+        item.date = formatDate(item.date.toDate(), 'M/d/yyyy');
+      }
+      return item;
+    });
+  return history;
+};
+
+const formatItemDates = (item) => {
+  {
+    item.created = formatDate(item.created.toDate(), 'M/d/yyyy');
+    if (item.edited) {
+      item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
+    }
+    if (item.resetOn) {
+      item.resetOn = formatDate(item.resetOn.toDate(), 'M/d/yyyy');
+    }
+    if (item.tallyUpdated) {
+      item.tallyUpdated = formatDistanceStrict(item.tallyUpdated.toDate(), new Date(), { addSuffix: true });
+    }
+    return item;
+  }
+};
+
 export const deleteLog = (logId) => {
   return async (dispatch) => {
     try {
@@ -163,45 +192,24 @@ export const fetchItems = (logId) => {
     dispatch({ type: 'items/SET_ITEMS_LOADING', payload: true });
 
     try {
-      const snapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').get();
+      const unsubscribe = firebase
+        .firestore()
+        .collection(`logs`)
+        .doc(logId)
+        .collection('items')
+        .onSnapshot(async (snapshot) => {
+          const items = snapshot.docs
+            .map((doc) => ({ id: doc.id, ...doc.data() }))
+            .map((item) => formatItemDates(item))
+            .sort((a, b) => (a.sortIndex > b.sortIndex ? 1 : -1));
 
-      const items = snapshot.docs
-        .map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        })
-        .map((item) => {
-          item.created = formatDate(item.created.toDate(), 'M/d/yyyy');
-          if (item.edited) {
-            item.edited = formatDate(item.edited.toDate(), 'M/d/yyyy');
+          for (const item of items) {
+            item.history = await getItemHistory(logId, item);
           }
-          if (item.resetOn) {
-            item.resetOn = formatDate(item.resetOn.toDate(), 'M/d/yyyy');
-          }
-          if (item.tallyUpdated) {
-            item.tallyUpdated = formatDistanceStrict(item.tallyUpdated.toDate(), new Date(), { addSuffix: true });
-          }
-          return item;
-        })
-        .sort((a, b) => {
-          if (a.sortIndex > b.sortIndex) return 1;
-          return -1;
+
+          dispatch({ type: 'items/SET_ITEMS', payload: items });
+          dispatch({ type: 'items/SET_ITEMS_LOADING', payload: false });
         });
-
-      for (const item of items) {
-        const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date').limit(10).get();
-        const history = historySnapshot.docs
-          .map((doc) => ({ id: doc.id, ...doc.data() }))
-          .map((item) => {
-            if (item.date) {
-              item.date = formatDate(item.date.toDate(), 'M/d/yyyy');
-            }
-            return item;
-          });
-        item.history = history;
-      }
-
-      dispatch({ type: 'items/SET_ITEMS', payload: items });
-      dispatch({ type: 'items/SET_ITEMS_LOADING', payload: false });
     } catch (error) {
       console.error(error);
       dispatch({ type: 'items/SET_ITEMS_LOADING', payload: false });

@@ -54,23 +54,9 @@ const logsReducer = createReducer(initialState, {
   },
   [incrementLogItemTally]: (state, action) => {
     state.item.tally += action.payload.by;
-
-    state.items = state.items.map((item) => {
-      if (item.id === action.payload.itemId) {
-        item = { ...item, tally: state.item.tally, tallyUpdated: 'a second ago' };
-      }
-      return item;
-    });
   },
   [decrementLogItemTally]: (state, action) => {
     state.item.tally -= action.payload.by;
-
-    state.items = state.items.map((item) => {
-      if (item.id === action.payload.itemId) {
-        item = { ...item, tally: state.item.tally, tallyUpdated: 'a second ago' };
-      }
-      return item;
-    });
   },
   [setLogsLoading]: (state, action) => {
     state.logsLoading = action.payload;

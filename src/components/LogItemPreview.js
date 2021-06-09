@@ -12,7 +12,7 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log, 
   const dispatch = useDispatch();
   const swipeableRef = useRef(null);
   const { name, tally, history, goal, resetEvery, tallyUpdated } = item;
-  const historyTallies = history?.map((item) => item.tally).slice(0, 10) ?? [];
+  const historyTallies = history?.map((item) => item.tally) ?? [];
 
   let resetEveryLabel;
   if (resetEvery === 'day') {
