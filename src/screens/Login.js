@@ -25,7 +25,7 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
-      <BlurredTopWrapper topBar={<TopBar>Sign in</TopBar>}>
+      <BlurredTopWrapper topBar={<TopBar goBack={() => navigation.goBack()}>Sign in</TopBar>}>
         <View style={tailwind('mb-6')}>
           <InputWithLabel label="Email" onChangeText={(text) => setEmail(text)} autoCompleteType="email" keyboardType="email-address" autoCorrect={false} autoCapitalize="none" />
         </View>
