@@ -37,12 +37,18 @@ export default function WrapperNav() {
     },
   };
 
+  const forFade = ({ current }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  });
+
   firebase.auth().onAuthStateChanged(onAuthStateChanged);
 
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="Splash"
         screenOptions={{
           cardStyle: { backgroundColor: gray[900] },
         }}
@@ -54,6 +60,7 @@ export default function WrapperNav() {
               component={LoggedIn}
               options={{
                 headerShown: false,
+                cardStyleInterpolator: forFade,
               }}
             />
           ) : (
@@ -62,6 +69,7 @@ export default function WrapperNav() {
               component={LoggedOut}
               options={{
                 headerShown: false,
+                cardStyleInterpolator: forFade,
               }}
             />
           )
@@ -71,6 +79,7 @@ export default function WrapperNav() {
             component={TheLoader}
             options={{
               headerShown: false,
+              cardStyleInterpolator: forFade,
             }}
           />
         )}
