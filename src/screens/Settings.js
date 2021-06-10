@@ -23,7 +23,7 @@ export default function Settings({ navigation }) {
   return (
     <SafeAreaView style={tailwind('flex-1')}>
       <BlurredTopWrapper topBar={<TopBar style={tailwind('z-50')}>Settings</TopBar>}>
-        <View style={tailwind('items-center justify-end flex-1')}>
+        <View style={tailwind('items-center justify-end flex-1 pb-20')}>
           <UpdatePasswordForm />
           <View style={tailwind('my-10 border-t-2 w-full border-gray-800')} />
           <TouchableOpacity onPress={onSignOut} style={tailwind('flex-row items-center bg-gray-300 py-3 px-10 rounded-lg')}>
