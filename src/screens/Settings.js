@@ -5,6 +5,7 @@ import { signOut } from '@store/actions/userActions';
 import { tailwind } from '@utils/tailwind';
 import { LogoutIcon } from 'react-native-heroicons/solid';
 import TopBar from '@components/TopBar';
+import UpdatePasswordForm from '@components/UpdatePasswordForm';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
 import { gray } from '@utils/colors';
 
@@ -14,7 +15,6 @@ export default function Settings({ navigation }) {
   const onSignOut = async () => {
     try {
       await dispatch(signOut());
-      navigation.navigate('LoggedOut', { screen: 'Login' });
     } catch (error) {
       alert(error);
     }
@@ -24,6 +24,8 @@ export default function Settings({ navigation }) {
     <SafeAreaView style={tailwind('flex-1')}>
       <BlurredTopWrapper topBar={<TopBar style={tailwind('z-50')}>Settings</TopBar>}>
         <View style={tailwind('items-center justify-end flex-1')}>
+          <UpdatePasswordForm />
+          <View style={tailwind('my-10 border-t-2 w-full border-gray-800')} />
           <TouchableOpacity onPress={onSignOut} style={tailwind('flex-row items-center bg-gray-300 py-3 px-10 rounded-lg')}>
             <LogoutIcon color={gray[700]} style={tailwind('mr-2')} />
             <Text style={tailwind('font-medium')}>Sign out</Text>

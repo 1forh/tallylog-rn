@@ -32,6 +32,22 @@ export const createUserWithEmailAndPassword = (email, password, name) => {
   };
 };
 
+export const updatePassword = (currentPassword, newPassword) => {
+  return async (dispatch) => {
+    try {
+      const user = firebase.auth().currentUser;
+      if (currentPassword === '') throw 'Enter your current password';
+      if (newPassword === '') throw 'Enter your new password';
+
+      await firebase.auth().signInWithEmailAndPassword(user.email, currentPassword);
+
+      await user.updatePassword(newPassword);
+    } catch (error) {
+      throw error.message ? error.message : error;
+    }
+  };
+};
+
 export const signOut = () => {
   return async (dispatch) => {
     try {

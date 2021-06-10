@@ -23,10 +23,11 @@ export default function WrapperNav() {
         type: 'user/SET_USER',
         payload: { email: user.email, uid: user.uid, name: user.displayName },
       });
-      setAuthenticated(authenticated);
     }
 
     setAuthenticationReady(true);
+
+    setAuthenticated(!!user);
   };
 
   const MyTheme = {
