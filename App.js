@@ -11,6 +11,7 @@ export default function App() {
   LogBox.ignoreLogs([
     'ReactNativeFiberHostComponent: Calling getNode() on the ref of an Animated component is no longer necessary. You can now directly use the ref instead. This method will be removed in a future release.',
   ]);
+  LogBox.ignoreLogs(['Warning: Failed prop type: Invalid prop `data[0]` supplied to `XAxis`.']);
 
   const [appIsReady, setAppIsReady] = useState(false);
 
