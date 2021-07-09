@@ -2,7 +2,7 @@ import { firebase } from '@utils/firebase';
 import { format as formatDate, formatDistanceStrict } from 'date-fns';
 
 const getItemHistory = async (logId, item, limit = 5) => {
-  const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date').limit(limit).get();
+  const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date', 'desc').limit(limit).get();
   const history = historySnapshot.docs
     .map((doc) => ({ id: doc.id, ...doc.data() }))
     .map((item) => {
