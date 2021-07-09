@@ -60,7 +60,7 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log, 
         flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
       }}
     >
-      {renderLeftAction('History', 'pencil', gray[100], gray[900], 75, progress, () => gotToLogItemHistory())}
+      {renderLeftAction('History', 'pencil', gray[700], gray[400], 75, progress, () => gotToLogItemHistory())}
     </View>
   );
 
@@ -91,7 +91,7 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log, 
         flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
       }}
     >
-      {renderRightAction('Edit', 'pencil', gray[100], gray[900], 75, progress, () => goToEditLogItem())}
+      {renderRightAction('Edit', 'pencil', gray[700], gray[400], 75, progress, () => goToEditLogItem())}
       {renderRightAction('Delete', 'trash', red[600], red[900], 150, progress, () => {
         Alert.alert('Deleting item', `Are you sure you want to delete this item?`, [
           {
