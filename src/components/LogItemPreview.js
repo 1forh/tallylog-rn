@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, I18nManager, Animated, Pressa
 import { tailwind } from '@utils/tailwind';
 import { gray, green, red } from '@utils/colors';
 import { useDispatch } from 'react-redux';
-import { TrashIcon, PencilAltIcon } from 'react-native-heroicons/solid';
+import { TrashIcon, PencilAltIcon, ClockIcon } from 'react-native-heroicons/solid';
 import { LineChart } from 'react-native-svg-charts';
 import { Swipeable } from 'react-native-gesture-handler';
 import { deleteItem } from '@store/actions/logsActions';
@@ -30,6 +30,39 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log, 
     navigate('EditLogItem');
     swipeableRef.current.close();
   };
+
+  const gotToLogItemHistory = () => {
+    dispatch({ type: 'items/SET_ITEM', payload: item });
+    navigate('LogItemHistory');
+    swipeableRef.current.close();
+  };
+
+  const renderLeftAction = (text, icon, color, textColor, x, progress, handler) => {
+    const trans = progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [x, 0],
+    });
+
+    return (
+      <Animated.View style={{ flex: 1, transform: [{ translateX: 0 }] }}>
+        <TouchableOpacity style={[styles.rightAction, { backgroundColor: color }, icon === 'trash' ? tailwind('rounded-tl-lg rounded-bl-lg') : null]} onPress={handler}>
+          {icon === 'pencil' && <ClockIcon name={icon} size={24} style={{ color: textColor, ...tailwind('mb-2') }} />}
+          <Text style={{ color: textColor, ...tailwind('font-medium') }}>{text}</Text>
+        </TouchableOpacity>
+      </Animated.View>
+    );
+  };
+
+  const renderLeftActions = (progress) => (
+    <View
+      style={{
+        width: 75,
+        flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+      }}
+    >
+      {renderLeftAction('History', 'pencil', gray[100], gray[900], 75, progress, () => gotToLogItemHistory())}
+    </View>
+  );
 
   const renderRightAction = (text, icon, color, textColor, x, progress, handler) => {
     const trans = progress.interpolate({
@@ -82,7 +115,7 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log, 
 
   return (
     <View style={tailwind('bg-gray-800 rounded-lg overflow-hidden')}>
-      <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
+      <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderLeftActions={renderLeftActions} renderRightActions={renderRightActions}>
         <Pressable onPress={goTo} onLongPress={onLongPress} style={tailwind('bg-gray-800 rounded-lg px-4 py-2 flex-row items-center justify-between')}>
           <View style={tailwind('flex-row items-center')}>
             <View style={tailwind('mr-6')}>

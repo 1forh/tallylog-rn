@@ -8,6 +8,7 @@ import AddItem from '@screens/AddItem';
 import AddLog from '@screens/AddLog';
 import EditLog from '@screens/EditLog';
 import EditLogItem from '@screens/EditLogItem';
+import LogItemHistory from '@screens/LogItemHistory';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,13 @@ export default function LogsNav() {
       <Stack.Screen
         name="EditLog"
         component={EditLog}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="LogItemHistory"
+        component={LogItemHistory}
         options={{
           headerShown: false,
         }}
