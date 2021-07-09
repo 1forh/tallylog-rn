@@ -11,7 +11,6 @@ import { createUserWithEmailAndPassword } from '@store/actions/userActions';
 export default function CreateAccount({ navigation }) {
   const dispatch = useDispatch();
   const pagerRef = useRef(null);
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
@@ -26,26 +25,19 @@ export default function CreateAccount({ navigation }) {
       navigation.goBack();
     } else if (currentPage === 1) {
       changePage(0);
-    } else if (currentPage === 2) {
-      changePage(1);
     }
-  };
-
-  const toEmail = () => {
-    if (!name) return;
-    changePage(1);
   };
 
   const toPassword = () => {
     if (!email) return;
-    changePage(2);
+    changePage(1);
   };
 
   const createAccount = async () => {
     if (!password) return;
 
     try {
-      await dispatch(createUserWithEmailAndPassword(email, password, name));
+      await dispatch(createUserWithEmailAndPassword(email, password));
       setEmail('');
       setPassword('');
       navigation.navigate('LoggedIn', { screen: 'LogItems' });
@@ -62,19 +54,6 @@ export default function CreateAccount({ navigation }) {
         <View key="0">
           <Container>
             <View>
-              <InputWithLabel label="What should we call you?" onChangeText={(text) => setName(text)} autoCompleteType="name" autoFocus={true} autoCorrect={false} />
-            </View>
-
-            <View style={tailwind('flex justify-center mt-10 w-full items-center')}>
-              <TouchableOpacity onPress={toEmail} disabled={name === ''} style={tailwind('bg-blue-500 w-full py-4 rounded-lg')}>
-                <Text style={tailwind('text-blue-800 text-xl font-bold text-center')}>Next</Text>
-              </TouchableOpacity>
-            </View>
-          </Container>
-        </View>
-        <View key="1">
-          <Container>
-            <View>
               <InputWithLabel label="What's your email?" onChangeText={(text) => setEmail(text)} autoCompleteType="email" keyboardType="email-address" autoCorrect={false} autoCapitalize="none" />
             </View>
 
@@ -85,7 +64,7 @@ export default function CreateAccount({ navigation }) {
             </View>
           </Container>
         </View>
-        <View key="2">
+        <View key="1">
           <Container>
             <View>
               <InputWithLabel label="What's your password?" onChangeText={(text) => setPassword(text)} secureTextEntry autoCompleteType="password" autoFocus={true} autoCapitalize="none" />
