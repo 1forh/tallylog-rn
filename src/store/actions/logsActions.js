@@ -3,7 +3,7 @@ import { format as formatDate, formatDistanceStrict } from 'date-fns';
 
 const getItemHistory = async (logId, item, limit = 5) => {
   const historySnapshot = await firebase.firestore().collection(`logs`).doc(logId).collection('items').doc(item.id).collection('history').orderBy('date', 'desc').limit(limit).get();
-  const history = historySnapshot.docs
+  let history = historySnapshot.docs
     .map((doc) => ({ id: doc.id, ...doc.data() }))
     .map((item) => {
       if (item.date) {
@@ -11,6 +11,15 @@ const getItemHistory = async (logId, item, limit = 5) => {
       }
       return item;
     });
+
+  history = history.sort((a, b) => {
+    if (new Date(a.date) > new Date(b.date)) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+
   return history;
 };
 
