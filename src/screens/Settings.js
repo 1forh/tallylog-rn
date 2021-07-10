@@ -66,8 +66,8 @@ export default function Settings({ navigation }) {
         </SettingsLinkGroup>
 
         <SettingsLinkGroup style={tailwind('mb-6')}>
-          <SettingsLink text={'Website'} iconBgColorClass={'bg-blue-600'} Icon={GlobeIcon} onPress={goToWebsite} />
-          <SettingsLink text={'Support'} iconBgColorClass={'bg-green-600'} Icon={QuestionMarkCircleIcon} onPress={goToSupport} />
+          <SettingsLink text={'View website'} iconBgColorClass={'bg-blue-600'} Icon={GlobeIcon} onPress={goToWebsite} />
+          <SettingsLink text={'Need help?'} iconBgColorClass={'bg-green-600'} Icon={QuestionMarkCircleIcon} onPress={goToSupport} />
           <SettingsLink text={'Rate Tally Log'} iconBgColorClass={'bg-pink-600'} Icon={StarIcon} last={true} onPress={requestReview} />
         </SettingsLinkGroup>
 
