@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 import { signOut } from '@store/actions/userActions';
 import { tailwind } from '@utils/tailwind';
-import { LogoutIcon, ChevronRightIcon, StarIcon, LockClosedIcon, GlobeIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/solid';
+import { ChevronRightIcon, StarIcon, LockClosedIcon, GlobeIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/solid';
+import { LogoutIcon } from 'react-native-heroicons/outline';
 import TopBar from '@components/TopBar';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
 import { gray } from '@utils/colors';
@@ -65,7 +66,7 @@ export default function Settings({ navigation }) {
         </SettingsLinkGroup>
 
         <SettingsLinkGroup style={tailwind('mb-6')}>
-          <SettingsLink text={'View website'} iconBgColorClass={'bg-blue-600'} Icon={GlobeIcon} onPress={goToWebsite} />
+          <SettingsLink text={'Website'} iconBgColorClass={'bg-blue-600'} Icon={GlobeIcon} onPress={goToWebsite} />
           <SettingsLink text={'Support'} iconBgColorClass={'bg-green-600'} Icon={QuestionMarkCircleIcon} onPress={goToSupport} />
           <SettingsLink text={'Rate Tally Log'} iconBgColorClass={'bg-pink-600'} Icon={StarIcon} last={true} onPress={requestReview} />
         </SettingsLinkGroup>
