@@ -4,7 +4,8 @@ import LogsNav from '@navigation/LogsNav';
 import SettingsNav from '@navigation/SettingsNav';
 import { gray, blue } from '@utils/colors';
 import { tailwind } from '@utils/tailwind';
-import { CogIcon, ViewListIcon, StarIcon } from 'react-native-heroicons/solid';
+import { StarIcon } from 'react-native-heroicons/solid';
+import { CogIcon, ViewListIcon } from 'react-native-heroicons/outline';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,12 +31,12 @@ const LoggedIn = () => {
         style: {
           borderTopColor: 'transparent',
           backgroundColor: '#000',
-          ...tailwind('pt-5'),
+          // ...tailwind('pt-'),
         },
       }}
     >
-      <Tab.Screen name="LogsNav" component={LogsNav} options={{ title: '' }} />
-      <Tab.Screen name="SettingsNav" component={SettingsNav} options={{ title: '' }} />
+      <Tab.Screen name="LogsNav" component={LogsNav} options={{ title: 'Logs' }} />
+      <Tab.Screen name="SettingsNav" component={SettingsNav} options={{ title: 'Settings' }} />
     </Tab.Navigator>
   );
 };
