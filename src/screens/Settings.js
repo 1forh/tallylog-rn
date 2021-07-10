@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 import { signOut } from '@store/actions/userActions';
 import { tailwind } from '@utils/tailwind';
-import { LogoutIcon, ChevronRightIcon, StarIcon, LockClosedIcon } from 'react-native-heroicons/solid';
+import { LogoutIcon, ChevronRightIcon, StarIcon, LockClosedIcon, GlobeIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/solid';
 import TopBar from '@components/TopBar';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
 import { gray } from '@utils/colors';
@@ -45,16 +45,29 @@ export default function Settings({ navigation }) {
     }
   };
 
-  const requestReview = async () => {
+  const requestReview = () => {
     Linking.openURL(`itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${1570186525}?action=write-review`);
+  };
+
+  const goToWebsite = () => {
+    Linking.openURL(`https://www.tallylog.com`);
+  };
+
+  const goToSupport = () => {
+    Linking.openURL(`https://www.tallylog.com/support`);
   };
 
   return (
     <SafeAreaView style={tailwind('flex-1')}>
       <BlurredTopWrapper topBar={<TopBar style={tailwind('z-50')}>Settings</TopBar>}>
         <SettingsLinkGroup style={tailwind('mb-6')}>
-          <SettingsLink text={'Update Password'} iconBgColorClass={'bg-blue-700'} Icon={LockClosedIcon} onPress={() => navigation.navigate('UpdatePassword')} />
-          <SettingsLink text={'Rate Tally Log'} iconBgColorClass={'bg-yellow-800'} Icon={StarIcon} last={true} onPress={requestReview} />
+          <SettingsLink text={'Update Password'} iconBgColorClass={'bg-yellow-800'} Icon={LockClosedIcon} onPress={() => navigation.navigate('UpdatePassword')} last={true} />
+        </SettingsLinkGroup>
+
+        <SettingsLinkGroup style={tailwind('mb-6')}>
+          <SettingsLink text={'View website'} iconBgColorClass={'bg-blue-600'} Icon={GlobeIcon} onPress={goToWebsite} />
+          <SettingsLink text={'Support'} iconBgColorClass={'bg-green-600'} Icon={QuestionMarkCircleIcon} onPress={goToSupport} />
+          <SettingsLink text={'Rate Tally Log'} iconBgColorClass={'bg-pink-600'} Icon={StarIcon} last={true} onPress={requestReview} />
         </SettingsLinkGroup>
 
         <SettingsLinkGroup>
