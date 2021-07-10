@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 import { signOut } from '@store/actions/userActions';
 import { tailwind } from '@utils/tailwind';
-import { LogoutIcon } from 'react-native-heroicons/solid';
+import { LogoutIcon, ChevronRightIcon, StarIcon, LockClosedIcon } from 'react-native-heroicons/solid';
 import TopBar from '@components/TopBar';
-import UpdatePasswordForm from '@components/UpdatePasswordForm';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
 import { gray } from '@utils/colors';
+import * as Linking from 'expo-linking';
+
+const SettingsLinkGroup = ({ children, style }) => {
+  return (
+    <View style={style}>
+      <View style={tailwind('bg-gray-800 rounded-lg')}>{children}</View>
+    </View>
+  );
+};
+
+const SettingsLink = ({ last = false, onPress, Icon, text, iconBgColorClass = 'bg-gray-900' }) => {
+  return (
+    <TouchableOpacity onPress={onPress} activeOpacity={0.75} style={tailwind('flex-row items-center w-full')}>
+      <View style={tailwind('flex-row items-center pl-4')}>
+        <View style={tailwind(`mr-4 p-1 rounded-lg ${iconBgColorClass}`)}>{Icon && <Icon color={gray[300]} />}</View>
+
+        <View style={[tailwind('flex-row items-center justify-between flex-1 border-gray-700 py-3'), last ? tailwind('border-0') : tailwind('border-b')]}>
+          <Text style={tailwind('text-white text-lg')}>{text}</Text>
+          <View style={tailwind('mr-2')}>
+            <ChevronRightIcon color={gray[500]} size={30} />
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 export default function Settings({ navigation }) {
   const dispatch = useDispatch();
@@ -20,17 +45,21 @@ export default function Settings({ navigation }) {
     }
   };
 
+  const requestReview = async () => {
+    Linking.openURL(`itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${1570186525}?action=write-review`);
+  };
+
   return (
     <SafeAreaView style={tailwind('flex-1')}>
       <BlurredTopWrapper topBar={<TopBar style={tailwind('z-50')}>Settings</TopBar>}>
-        <View style={tailwind('items-center justify-end flex-1 pb-20')}>
-          <UpdatePasswordForm />
-          <View style={tailwind('my-10 border-t-2 w-full border-gray-800')} />
-          <TouchableOpacity onPress={onSignOut} style={tailwind('flex-row items-center bg-gray-300 py-3 px-10 rounded-lg')}>
-            <LogoutIcon color={gray[700]} style={tailwind('mr-2')} />
-            <Text style={tailwind('font-medium')}>Sign out</Text>
-          </TouchableOpacity>
-        </View>
+        <SettingsLinkGroup style={tailwind('mb-6')}>
+          <SettingsLink text={'Update Password'} iconBgColorClass={'bg-blue-700'} Icon={LockClosedIcon} onPress={() => navigation.navigate('UpdatePassword')} />
+          <SettingsLink text={'Rate Tally Log'} iconBgColorClass={'bg-yellow-800'} Icon={StarIcon} last={true} onPress={requestReview} />
+        </SettingsLinkGroup>
+
+        <SettingsLinkGroup>
+          <SettingsLink text={'Sign out'} iconBgColorClass={'bg-purple-500'} Icon={LogoutIcon} last={true} onPress={onSignOut} />
+        </SettingsLinkGroup>
       </BlurredTopWrapper>
     </SafeAreaView>
   );
