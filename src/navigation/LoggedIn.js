@@ -1,18 +1,18 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LogsNav from '@navigation/LogsNav';
-import Settings from '@screens/Settings';
-import FavoriteLog from '@screens/FavoriteLog';
+import SettingsNav from '@navigation/SettingsNav';
 import { gray, blue } from '@utils/colors';
 import { tailwind } from '@utils/tailwind';
-import { CogIcon, ViewListIcon, StarIcon } from 'react-native-heroicons/solid';
+import { StarIcon } from 'react-native-heroicons/solid';
+import { CogIcon, ViewListIcon } from 'react-native-heroicons/outline';
 
 const Tab = createBottomTabNavigator();
 
 const LoggedIn = () => {
   return (
     <Tab.Navigator
-      initialRouteName="LogItems"
+      initialRouteName="Settings"
       screenOptions={({ route }) => ({
         cardStyle: { backgroundColor: gray[900] },
         tabBarIcon: ({ color, size }) => {
@@ -20,7 +20,7 @@ const LoggedIn = () => {
             return <ViewListIcon color={color} size={size} />;
           } else if (route.name === 'FavoriteLog') {
             return <StarIcon color={color} size={size} />;
-          } else if (route.name === 'Settings') {
+          } else if (route.name === 'SettingsNav') {
             return <CogIcon color={color} size={size} />;
           }
         },
@@ -31,13 +31,12 @@ const LoggedIn = () => {
         style: {
           borderTopColor: 'transparent',
           backgroundColor: '#000',
-          ...tailwind('pt-5'),
+          // ...tailwind('pt-'),
         },
       }}
     >
-      <Tab.Screen name="LogsNav" component={LogsNav} options={{ title: '' }} />
-      {/* <Tab.Screen name="FavoriteLog" component={FavoriteLog} options={{ title: '' }} /> */}
-      <Tab.Screen name="Settings" component={Settings} options={{ title: '' }} />
+      <Tab.Screen name="LogsNav" component={LogsNav} options={{ title: 'Logs' }} />
+      <Tab.Screen name="SettingsNav" component={SettingsNav} options={{ title: 'Settings' }} />
     </Tab.Navigator>
   );
 };

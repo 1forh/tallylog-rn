@@ -49,11 +49,6 @@ export default function UpdatePasswordForm() {
 
   return (
     <>
-      <View style={tailwind('w-full')}>
-        <Text style={tailwind('text-lg font-semibold text-gray-300 mb-1')}>Update Password</Text>
-        <Text style={tailwind('text-gray-500')}>Enter your current password and your new one</Text>
-      </View>
-
       <View style={tailwind('mb-6 w-full')}>
         <InputWithLabel placeholder="Current password" value={currentPassword} secureTextEntry={true} onChangeText={(text) => setCurrentPassword(text)} />
         <InputWithLabel placeholder="New password" value={newPassword} secureTextEntry={true} onChangeText={(text) => setNewPassword(text)} />
