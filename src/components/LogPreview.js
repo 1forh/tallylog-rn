@@ -71,7 +71,7 @@ export default function LogPreview({ navigate = () => {}, style, log, demo }) {
     return demo ? (
       <View>{children}</View>
     ) : (
-      <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderLeftActions={renderLeftActions} renderRightActions={renderRightActions}>
+      <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
         {children}
       </Swipeable>
     );
