@@ -7,10 +7,10 @@ import { deleteLog } from '@store/actions/logsActions';
 import { TrashIcon, PencilAltIcon } from 'react-native-heroicons/solid';
 import { Swipeable } from 'react-native-gesture-handler';
 
-export default function LogPreview({ navigate = () => {}, style, log }) {
+export default function LogPreview({ navigate = () => {}, style, log, demo }) {
   const dispatch = useDispatch();
   const swipeableRef = useRef(null);
-  const { name, tally, color: logColor } = log;
+  const { name, color: logColor } = log;
 
   const goToLog = () => {
     dispatch({ type: 'items/SET_LOG', payload: log });
@@ -67,13 +67,23 @@ export default function LogPreview({ navigate = () => {}, style, log }) {
     </View>
   );
 
+  const Wrapper = ({ children }) => {
+    return demo ? (
+      <View>{children}</View>
+    ) : (
+      <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderLeftActions={renderLeftActions} renderRightActions={renderRightActions}>
+        {children}
+      </Swipeable>
+    );
+  };
+
   return (
-    <View style={[logColor ? { backgroundColor: pickerColors[logColor] } : tailwind('bg-gray-800'), tailwind('rounded-lg overflow-hidden')]}>
-      <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderRightActions={renderRightActions}>
+    <View style={[style, logColor ? { backgroundColor: pickerColors[logColor] } : tailwind('bg-gray-800'), tailwind('rounded-lg overflow-hidden')]}>
+      <Wrapper>
         <Pressable onPress={goToLog} style={[logColor ? { backgroundColor: pickerColors[logColor] } : tailwind('bg-gray-800'), tailwind('rounded-lg px-4 py-5 flex-row items-center justify-between')]}>
           <Text style={[logColor ? { color: pickerColorsText[logColor] } : tailwind('text-gray-300'), tailwind('text-xl font-semibold')]}>{name}</Text>
         </Pressable>
-      </Swipeable>
+      </Wrapper>
     </View>
   );
 }
