@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^1.5.1",
     "date-fns": "^2.22.1",
     "expo": "~41.0.1",
+    "expo-ads-admob": "~10.0.4",
     "expo-app-loading": "^1.0.3",
     "expo-blur": "~9.0.3",
     "expo-firebase-analytics": "~4.0.2",

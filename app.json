@@ -19,7 +19,10 @@
       "userInterfaceStyle": "dark",
       "backgroundColor": "#171717",
       "bundleIdentifier": "com.skycatchfire.TallyLog",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3709556784139074~4313095319"
+      }
     },
     "android": {
       "adaptiveIcon": {

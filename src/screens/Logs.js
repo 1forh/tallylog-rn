@@ -5,6 +5,7 @@ import { tailwind } from '@utils/tailwind';
 import LogPreview from '@components/LogPreview';
 import TopBar from '@components/TopBar';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
+import BannerAd from '@components/BannerAd';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon } from 'react-native-heroicons/solid';
 import { fetchLogs, logsLoading } from '@store/actions/logsActions';
@@ -21,6 +22,7 @@ export default function Logs({ navigation }) {
     }
     navigation.navigate('AddLog');
   };
+
   useEffect(() => {
     dispatch(fetchLogs());
   }, []);
@@ -48,6 +50,8 @@ export default function Logs({ navigation }) {
         )}
       </BlurredTopWrapper>
 
+      <BannerAd />
+
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={goToAddLog}
@@ -60,7 +64,7 @@ export default function Logs({ navigation }) {
           shadowOpacity: 0.4,
           shadowRadius: 1,
           elevation: 2,
-          ...tailwind('rounded-full w-14 h-14 flex items-center bg-blue-500 justify-center absolute bottom-5 right-5'),
+          ...tailwind('rounded-full w-14 h-14 flex items-center bg-blue-500 justify-center absolute bottom-20 right-5'),
         }}
       >
         <PlusIcon size={42} style={tailwind('text-blue-800')} />
