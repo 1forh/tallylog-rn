@@ -27,7 +27,7 @@ export default function Splash({ navigation }) {
             <View style={tailwind('flex flex-col w-full mb-12')}>
               <Animated.View style={{ opacity: fadeAnim }}>
                 <View style={tailwind('items-center mb-40')}>
-                  <Text style={tailwind('text-gray-400 text-xl mb-2 font-light')}>Welcome to</Text>
+                  <Text style={tailwind('text-gray-400 text-xl mb-2 font-light')}>👋 Welcome to</Text>
                   <Text style={tailwind('text-gray-100 text-4xl font-bold')}>Tally Log</Text>
                 </View>
 

@@ -82,7 +82,7 @@ export default function WalkThrough({ navigation }) {
           <Container style={tailwind('pt-28')}>
             <Animated.View style={{ opacity: fadeAnim }}>
               <View style={tailwind('items-center')}>
-                <Text style={tailwind('text-gray-400 text-xl mb-2 font-light')}>Welcome to</Text>
+                <Text style={tailwind('text-gray-400 text-xl mb-2 font-light')}>👋 Welcome to</Text>
                 <Text style={tailwind('text-gray-100 text-4xl font-bold')}>Tally Log</Text>
 
                 <SwipeToAdvance text="Swipe right to see how it works" />
