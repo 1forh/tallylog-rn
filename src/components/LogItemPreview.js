@@ -8,7 +8,7 @@ import { LineChart } from 'react-native-svg-charts';
 import { Swipeable } from 'react-native-gesture-handler';
 import { deleteItem } from '@store/actions/logsActions';
 
-export default function LogItemPreview({ navigate = () => {}, style, item, log, onLongPress }) {
+export default function LogItemPreview({ navigate = () => {}, style, item, log, onLongPress, demo }) {
   const dispatch = useDispatch();
   const swipeableRef = useRef(null);
   const { name, tally, history, goal, resetEvery, tallyUpdated } = item;
@@ -108,14 +108,24 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log, 
     </View>
   );
 
+  const Wrapper = ({ children }) => {
+    return demo ? (
+      <View>{children}</View>
+    ) : (
+      <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderLeftActions={renderLeftActions} renderRightActions={renderRightActions}>
+        {children}
+      </Swipeable>
+    );
+  };
+
   const goTo = () => {
     dispatch({ type: 'items/SET_ITEM', payload: item });
     navigate('LogItem');
   };
 
   return (
-    <View style={tailwind('bg-gray-800 rounded-lg overflow-hidden')}>
-      <Swipeable ref={swipeableRef} friction={2} leftThreshold={30} rightThreshold={40} renderLeftActions={renderLeftActions} renderRightActions={renderRightActions}>
+    <View style={{ ...style, ...tailwind('bg-gray-800 rounded-lg overflow-hidden') }}>
+      <Wrapper>
         <Pressable onPress={goTo} onLongPress={onLongPress} style={tailwind('bg-gray-800 rounded-lg px-4 py-2 flex-row items-center justify-between')}>
           <View style={tailwind('flex-row items-center')}>
             <View style={tailwind('mr-6')}>
@@ -133,7 +143,7 @@ export default function LogItemPreview({ navigate = () => {}, style, item, log, 
             {tallyUpdated && <Text style={tailwind('text-gray-500 text-base')}>{tallyUpdated}</Text>}
           </View>
         </Pressable>
-      </Swipeable>
+      </Wrapper>
     </View>
   );
 }

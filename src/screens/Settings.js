@@ -7,6 +7,7 @@ import { ChevronRightIcon, StarIcon, LockClosedIcon, GlobeIcon, QuestionMarkCirc
 import { LogoutIcon } from 'react-native-heroicons/outline';
 import TopBar from '@components/TopBar';
 import BlurredTopWrapper from '@components/BlurredTopWrapper';
+import BannerAd from '@components/BannerAd';
 import { gray } from '@utils/colors';
 import * as Linking from 'expo-linking';
 
@@ -75,6 +76,8 @@ export default function Settings({ navigation }) {
           <SettingsLink text={'Sign out'} iconBgColorClass={'bg-purple-500'} Icon={LogoutIcon} last={true} onPress={onSignOut} />
         </SettingsLinkGroup>
       </BlurredTopWrapper>
+
+      <BannerAd />
     </SafeAreaView>
   );
 }

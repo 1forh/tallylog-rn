@@ -26,7 +26,11 @@ export default function Splash({ navigation }) {
           <Container>
             <View style={tailwind('flex flex-col w-full mb-12')}>
               <Animated.View style={{ opacity: fadeAnim }}>
-                <Text style={tailwind('text-gray-300 mb-48 text-center text-4xl font-bold tracking-wide')}>Tally Log</Text>
+                <View style={tailwind('items-center mb-40')}>
+                  <Text style={tailwind('text-gray-400 text-xl mb-2 font-light')}>👋 Welcome to</Text>
+                  <Text style={tailwind('text-gray-100 text-4xl font-bold')}>Tally Log</Text>
+                </View>
+
                 <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')} style={tailwind('bg-blue-500 w-full py-4 rounded-lg mb-4')}>
                   <Text style={tailwind('text-blue-800 text-xl font-bold text-center')}>Create an account</Text>
                 </TouchableOpacity>

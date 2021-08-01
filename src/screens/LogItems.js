@@ -5,6 +5,7 @@ import { tailwind } from '@utils/tailwind';
 import LogItemPreview from '@components/LogItemPreview';
 import TopBar from '@components/TopBar';
 import Container from '@components/Container';
+import BannerAd from '@components/BannerAd';
 import * as Haptics from 'expo-haptics';
 import { PlusIcon } from 'react-native-heroicons/solid';
 import { fetchItems, updateItemOrder } from '@store/actions/logsActions';
@@ -75,6 +76,8 @@ export default function LogItems({ navigation, isFavorites }) {
         </Container>
       </View>
 
+      <BannerAd />
+
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={goToAddItem}
@@ -87,7 +90,7 @@ export default function LogItems({ navigation, isFavorites }) {
           shadowOpacity: 0.4,
           shadowRadius: 1,
           elevation: 2,
-          ...tailwind('rounded-full w-14 h-14 flex items-center bg-blue-500 justify-center absolute bottom-5 right-5'),
+          ...tailwind('rounded-full w-14 h-14 flex items-center bg-blue-500 justify-center absolute bottom-20 right-5'),
         }}
       >
         <PlusIcon size={42} style={tailwind('text-blue-800')} />
