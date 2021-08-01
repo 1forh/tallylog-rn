@@ -11,7 +11,7 @@ export default function BannerAd() {
   return (
     <View style={tailwind('w-full')}>
       <AdMobBanner
-        adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+        adUnitID="ca-app-pub-3709556784139074/8433686615" // Test ID, Replace with your-admob-unit-id
         servePersonalizedAds={true}
         onDidFailToReceiveAdWithError={onBannerError}
       />
